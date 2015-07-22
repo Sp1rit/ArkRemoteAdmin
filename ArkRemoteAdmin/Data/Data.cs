@@ -11,12 +11,12 @@ namespace ArkRemoteAdmin.Data
 {
     static class Data
     {
-        private static string appDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "ArkRemoteAdmin");
-        private static DirectoryInfo directory = new DirectoryInfo(Path.Combine(appDataPath, "Data"));
+        public static readonly DirectoryInfo AppDataPath = new DirectoryInfo(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "ArkRemoteAdmin"));
+        public static readonly DirectoryInfo DataDirectory = new DirectoryInfo(Path.Combine(AppDataPath.FullName, "Data"));
 
         public static void Load()
         {
-            if (!directory.Exists)
+            if (!DataDirectory.Exists)
             {
                 // TODO: Log
                 return;
@@ -24,7 +24,7 @@ namespace ArkRemoteAdmin.Data
 
             XmlSerializer serializer = new XmlSerializer(typeof(Server));
             servers = new List<Server>();
-            foreach (var file in directory.GetFiles("*.server"))
+            foreach (var file in DataDirectory.GetFiles("*.server"))
             {
                 try
                 {
@@ -45,7 +45,7 @@ namespace ArkRemoteAdmin.Data
 
             serializer = new XmlSerializer(typeof(Schedule));
             schedules = new List<Schedule>();
-            foreach (var file in directory.GetFiles("*.schedule"))
+            foreach (var file in DataDirectory.GetFiles("*.schedule"))
             {
                 try
                 {
@@ -78,13 +78,13 @@ namespace ArkRemoteAdmin.Data
         {
             try
             {
-                if (!directory.Exists)
-                    directory.Create();
+                if (!DataDirectory.Exists)
+                    DataDirectory.Create();
 
                 XmlSerializer xml = new XmlSerializer(typeof(Server));
 
-                File.Delete(Path.Combine(directory.FullName, server.Id + ".server"));
-                using (FileStream fs = File.Open(Path.Combine(directory.FullName, server.Id + ".server"), FileMode.OpenOrCreate, FileAccess.Write))
+                File.Delete(Path.Combine(DataDirectory.FullName, server.Id + ".server"));
+                using (FileStream fs = File.Open(Path.Combine(DataDirectory.FullName, server.Id + ".server"), FileMode.OpenOrCreate, FileAccess.Write))
                     xml.Serialize(fs, server);
 
                 if (!servers.Exists(s => s.Id == server.Id))
@@ -100,8 +100,8 @@ namespace ArkRemoteAdmin.Data
         {
             try
             {
-                if (File.Exists(Path.Combine(directory.FullName, server.Id + ".server")))
-                    File.Delete(Path.Combine(directory.FullName, server.Id + ".server"));
+                if (File.Exists(Path.Combine(DataDirectory.FullName, server.Id + ".server")))
+                    File.Delete(Path.Combine(DataDirectory.FullName, server.Id + ".server"));
 
                 if (servers.Contains(server))
                     servers.Remove(server);
@@ -127,13 +127,13 @@ namespace ArkRemoteAdmin.Data
         {
             try
             {
-                if (!directory.Exists)
-                    directory.Create();
+                if (!DataDirectory.Exists)
+                    DataDirectory.Create();
 
                 XmlSerializer xml = new XmlSerializer(typeof(Schedule));
 
-                File.Delete(Path.Combine(directory.FullName, schedule.Id + ".schedule"));
-                using (FileStream fs = File.OpenWrite(Path.Combine(directory.FullName, schedule.Id + ".schedule")))
+                File.Delete(Path.Combine(DataDirectory.FullName, schedule.Id + ".schedule"));
+                using (FileStream fs = File.OpenWrite(Path.Combine(DataDirectory.FullName, schedule.Id + ".schedule")))
                     xml.Serialize(fs, schedule);
 
                 if (!schedules.Exists(s => s.Id == schedule.Id))
@@ -149,8 +149,8 @@ namespace ArkRemoteAdmin.Data
         {
             try
             {
-                if (File.Exists(Path.Combine(directory.FullName, schedule.Id + ".schedule")))
-                    File.Delete(Path.Combine(directory.FullName, schedule.Id + ".schedule"));
+                if (File.Exists(Path.Combine(DataDirectory.FullName, schedule.Id + ".schedule")))
+                    File.Delete(Path.Combine(DataDirectory.FullName, schedule.Id + ".schedule"));
 
                 if (schedules.Contains(schedule))
                     schedules.Remove(schedule);

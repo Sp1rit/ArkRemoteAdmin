@@ -16,12 +16,18 @@ namespace ArkRemoteAdmin.Data
         public string Name { get; set; }
         public string Host { get; set; }
         public int Port { get; set; }
+        public int QueryPort { get; set; }
         public string Password { get; set; }
         public bool Default { get; set; }
+        public string MessageOfTheDay { get; set; }
+        public bool GetChat { get; set; }
+
+        public List<Player> BannedPlayers { get; set; }
 
         public Server()
         {
             Id = Guid.NewGuid();
+            BannedPlayers = new List<Player>();
         }
 
         //[OptionalField(VersionAdded = 2)]

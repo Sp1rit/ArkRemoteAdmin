@@ -6,16 +6,13 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ArkRemoteAdmin.Data;
-using RconSharp;
-using RconSharp.Net45;
+using ArkRemoteAdmin.SourceRcon;
 
 namespace ArkRemoteAdmin
 {
     static class Rcon
     {
-        private static RconSocket socket;
-        private static RconMessenger messenger;
-
+        private static RconClient client;
         static Regex playerMatch = new Regex(@"[0-9]\. (?<Name>.*), (?<SteamId>[0-9]{17})", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
         public static event EventHandler<CommandExecutedEventArgs> CommandExecuted;
@@ -44,56 +41,35 @@ namespace ArkRemoteAdmin
 
         public static bool IsConnected
         {
-            get { return socket != null && socket.IsConnected; }
+            get { return client != null && client.IsConnected; }
         }
 
         public static Server Server { get; private set; }
 
-        public static async Task<bool> Connect(Server server)
+        public static bool Connect(Server server)
         {
             if (IsConnected)
                 throw new Exception("You are already connected to a server.");
 
-            Server = null;
-
-            try
+            Server = server;
+            if (client == null)
             {
-                socket = new RconSocket();
-                messenger = new RconMessenger(socket);
-                bool connected = await messenger.ConnectAsync(server.Host, server.Port);
-
-                if (!connected)
-                {
-                    MessageBox.Show("Could not connect to the server.");
-                    return false;
-                }
-
-                bool authenticated = await messenger.AuthenticateAsync(Encryption.DecryptString(server.Password, "0?NRAnRBm;SWd41BUbKsT7)kN1y=RHLm=DR4ZZUBk&!JF3i\"Ra2Eg,8qwhA0^ydo"));
-
-                if (!authenticated)
-                {
-                    MessageBox.Show("Could not authenticate to the server.");
-                    return false;
-                }
-
-                Server = server;
-                OnConnected();
-
-                return true;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Could not connect to the server.");
+                client = new RconClient();
+                client.Connected += (s,e) => OnConnected();
+                client.Disconnected += (s, e) => OnDisconnected();
             }
 
-            return false;
+            string message;
+            if (!client.Connect(server.Host, server.Port, Encryption.DecryptString(server.Password, "0?NRAnRBm;SWd41BUbKsT7)kN1y=RHLm=DR4ZZUBk&!JF3i\"Ra2Eg,8qwhA0^ydo"), out message))
+                throw new Exception(message);
+
+            return true;
         }
 
         public static void Disconnect()
         {
             Server = null;
-            messenger.CloseConnection();
-            OnDisconnected();
+            client.Disconnect();
         }
 
         public static async Task<string> ExecuteCommand(string command)
@@ -102,12 +78,12 @@ namespace ArkRemoteAdmin
             {
                 if (IsConnected)
                 {
-                    string response = await messenger.ExecuteCommandAsync(command);
+                    string response = await Task.Run(() => client.ExecuteCommand(command));
 
                     if (command != "getchat")
                         OnCommandExecuted(command, response);
 
-                    return response;
+                    return response ?? "";
                 }
             }
             catch (Exception ex)
@@ -141,9 +117,28 @@ namespace ArkRemoteAdmin
             if (!IsConnected)
                 throw new Exception("You are not connected to a server.");
 
-            string response = await ExecuteCommand(string.Format("broadcast {0}", message.Replace(Environment.NewLine, "\n")));
+            string response = await ExecuteCommand(string.Format("broadcast {0}",
+                message
+                .Replace("ä", "ae")
+                .Replace("ü", "ue")
+                .Replace("ö", "oe")
+                .Replace("Ä", "Ae")
+                .Replace("Ö", "Oe")
+                .Replace("Ü", "Ue")
+                .Replace(Environment.NewLine, "\n")));
 
             return response.Trim() == "Server received, But no response!!";
+        }
+
+        public static async Task<bool> SetMessageOfTheDay(string message)
+        {
+            if (!IsConnected)
+                throw new Exception("You are not connected to a server");
+
+            string motd = message.Replace(Environment.NewLine, "\n").Trim();
+            string response = await ExecuteCommand(string.Format("setmessageoftheday {0}", motd));
+
+            return response.Trim() == string.Format("Message of set to {0}", motd);
         }
 
         public static async Task<string> GetChat()
@@ -164,7 +159,15 @@ namespace ArkRemoteAdmin
             if (!IsConnected)
                 throw new Exception("You are not connected to a server.");
 
-            string response = await ExecuteCommand(string.Format("serverchat {0}", message.Replace(Environment.NewLine, "\n")));
+            string response = await ExecuteCommand(string.Format("serverchat {0}",
+                message
+                .Replace("ä", "ae")
+                .Replace("ü", "ue")
+                .Replace("ö", "oe")
+                .Replace("Ä", "Ae")
+                .Replace("Ö", "Oe")
+                .Replace("Ü", "Ue")
+                .Replace(Environment.NewLine, "\n")));
 
             return response.Trim() == "Server received, But no response!!";
         }

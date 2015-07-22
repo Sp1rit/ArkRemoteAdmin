@@ -11,7 +11,7 @@ using System.Resources;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("xUnion.net")]
 [assembly: AssemblyProduct("ARK Remote Admin")]
-[assembly: AssemblyCopyright("Copyright ©  2015 by xUnion.net")]
+[assembly: AssemblyCopyright("Copyright © 2015 by xUnion.net")]
 [assembly: AssemblyTrademark("xUnion.net")]
 [assembly: AssemblyCulture("")]
 
@@ -33,6 +33,6 @@ using System.Resources;
 // Sie können alle Werte angeben oder die standardmäßigen Build- und Revisionsnummern 
 // übernehmen, indem Sie "*" eingeben:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.2.0.0")]
-[assembly: AssemblyFileVersion("1.2.0.0")]
+[assembly: AssemblyVersion("1.4.0.0")]
+[assembly: AssemblyFileVersion("1.4.0.0")]
 [assembly: NeutralResourcesLanguageAttribute("en")]

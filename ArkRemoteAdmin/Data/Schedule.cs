@@ -19,6 +19,7 @@ namespace ArkRemoteAdmin.Data
         public string Message { get; set; }
         public bool Active { get; set; }
         public ScheduleType Type { get; set; }
+        public MessageType MessageType { get; set; }
 
         [XmlIgnore]
         public TimeSpan TimeSpan
@@ -39,6 +40,9 @@ namespace ArkRemoteAdmin.Data
         public Schedule()
         {
             Id = Guid.NewGuid();
+            Type = ScheduleType.Minute;
+            MessageType = MessageType.BroadCast;
+            Active = false;
         }
     }
 
@@ -47,5 +51,11 @@ namespace ArkRemoteAdmin.Data
         Minute,
         Hourly,
         Daily
+    }
+
+    public enum MessageType
+    {
+        BroadCast,
+        Chat
     }
 }

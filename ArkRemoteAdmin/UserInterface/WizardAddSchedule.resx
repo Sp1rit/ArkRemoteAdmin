@@ -117,26 +117,29 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="connect" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\connect.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="disconnect" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\disconnect.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="error" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\exclamation.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="exclamation" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\exclamation.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="hourglass" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\hourglass.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ok" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\accept.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="warning" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\error.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        AAABAAEAEBAAAAAAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAQAQAAAAAAAAAAAAAAAAAAAAA
+        AAD///8BoqKiDaKiotmioqL5oqKiK////wH///8B////Af///wH///8BGWs3iRprOPUZazf/H248/yNv
+        P5P///8B////AbS0tBW0tLTz29vb/7Ozsu18Wi+Be1gswXtYLO17WCztQWMy4SiMU/9kuo3/ldKy/2S6
+        jf8ojFP/GWs3jf///wH///8BxsbGQdPT0//Cv739nGs7/6ZsNf+ubzf/rm83/x9sOf9iuov/YLqH////
+        //9guYf/Z7yP/xlrN/f///8B////AYxlNmejiGn1r3hE/7uMXv/Ck3H/xJF0/8OPcf8xe0z/nNS2////
+        /////////////5XSsv8Zazf/////AZZtOzWWbTvVs31G/8KZcf/Yqon/79/P//r28//69fP/SYph/5DT
+        sf+S1rH//////2W8jP9nvI//GWs39////wGhdUGBsIBK/8abb//Zqoj///7r///67v///fL///7y/6jF
+        q/9hq4H/ldS0/7rm0P9qu4//LY9X/xlrN43///8BrH5Iwb+PWP/No4H/8NvB///35v/68uP/xcC2//Ht
+        3v///Oj/rsap/2CXcf9Pjmb/RoVZ/2Z7Sd////8B////AbeHTu3JnGb/z5+A//rz4v/99un/8vDj/42M
+        hP+Bf3f/0s/C///76//67Mz/x5Bt/8mcZv+3h07t////Af///wHCkFTtzqZx/9Glif/69un//fju////
+        +f+BgHn/sa6k/4F/d//Jxrr/+vDT/8mWcv/OpnH/wpBU7f///wH///8BzZlbwdOsdf/Zt5j/8ePW//77
+        9f/19fP/n56V//Dw6f/4+PL/vrmt//Dawv/Sqof/06x1/82ZW8H///8B////AbOddIvTrXf/38Sa/969
+        qv//////8PDu/+fl2v////f////3///+8//ctJj/28CW/8Kqfv/Gn2qF////AQCZ3T0KmtjZLpzF9d6/
+        iv/iyaf/37+u//Hj3P/z8ez/9PHr//Hi2f/cuqP/38Oe/4yxqf84ptH5DprWzwCZ3ScAoON9fNHy7WHD
+        6O86pMb74seS/+bRqf/gwqb/1a6W/9Wrkv/evaD/5M+m/7/Bnv9Hstf9q+P2/Smw6NkAoOMnAKfpe13J
+        8eW16Pn/Ycfr7zqqzPPsxIj/6cuU/+fQnf/n0J3/6cuU/97Cjv8yqtD1gdPw9XPQ8+sAp+nNAKfpBQCu
+        7wUAru+LW8v05b/s+v9cy/HpTbLJxfq8dMH6vHTt+rx07fq8dMFRssjDac/y7XzW9u0Aru/JAK7vHf//
+        /wH///8BALX0AwC19IEAtfTRALX0ywC19Af///8B////Af///wH///8BALX0FwC19NEAtfTJALX0J///
+        /wH///8BAAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA
+        //8AAP//AAD//w==
+</value>
   </data>
 </root>
