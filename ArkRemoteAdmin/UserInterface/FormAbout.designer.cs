@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormAbout));
-            this.lblControls = new System.Windows.Forms.Label();
             this.lnkLblAppIcon = new System.Windows.Forms.LinkLabel();
             this.lblAppIcon = new System.Windows.Forms.Label();
             this.lnkLblWebsite = new System.Windows.Forms.LinkLabel();
@@ -39,19 +38,8 @@
             this.picBxLogo = new System.Windows.Forms.PictureBox();
             this.lnkLblIcons = new System.Windows.Forms.LinkLabel();
             this.lblIcons = new System.Windows.Forms.Label();
-            this.lnkLblControls = new System.Windows.Forms.LinkLabel();
             ((System.ComponentModel.ISupportInitialize)(this.picBxLogo)).BeginInit();
             this.SuspendLayout();
-            // 
-            // lblControls
-            // 
-            this.lblControls.AutoSize = true;
-            this.lblControls.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblControls.Location = new System.Drawing.Point(24, 198);
-            this.lblControls.Name = "lblControls";
-            this.lblControls.Size = new System.Drawing.Size(56, 13);
-            this.lblControls.TabIndex = 19;
-            this.lblControls.Text = "Updater:";
             // 
             // lnkLblAppIcon
             // 
@@ -161,31 +149,13 @@
             this.lblIcons.TabIndex = 23;
             this.lblIcons.Text = "Icons:";
             // 
-            // lnkLblControls
-            // 
-            this.lnkLblControls.ActiveLinkColor = System.Drawing.SystemColors.HotTrack;
-            this.lnkLblControls.AutoSize = true;
-            this.lnkLblControls.Font = new System.Drawing.Font("Tahoma", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lnkLblControls.LinkColor = System.Drawing.SystemColors.HotTrack;
-            this.lnkLblControls.Location = new System.Drawing.Point(123, 198);
-            this.lnkLblControls.Name = "lnkLblControls";
-            this.lnkLblControls.Size = new System.Drawing.Size(97, 13);
-            this.lnkLblControls.TabIndex = 20;
-            this.lnkLblControls.TabStop = true;
-            this.lnkLblControls.Tag = "https://github.com/stefanodriussi/rconsharp";
-            this.lnkLblControls.Text = "UpdateSystem.net";
-            this.lnkLblControls.VisitedLinkColor = System.Drawing.SystemColors.HotTrack;
-            this.lnkLblControls.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.link_LinkClicked);
-            // 
             // FormAbout
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(342, 230);
+            this.ClientSize = new System.Drawing.Size(342, 206);
             this.Controls.Add(this.lnkLblIcons);
             this.Controls.Add(this.lblIcons);
-            this.Controls.Add(this.lnkLblControls);
-            this.Controls.Add(this.lblControls);
             this.Controls.Add(this.lnkLblAppIcon);
             this.Controls.Add(this.lblAppIcon);
             this.Controls.Add(this.lnkLblWebsite);
@@ -209,7 +179,6 @@
 
         #endregion
 
-        internal System.Windows.Forms.Label lblControls;
         internal System.Windows.Forms.LinkLabel lnkLblAppIcon;
         internal System.Windows.Forms.Label lblAppIcon;
         internal System.Windows.Forms.LinkLabel lnkLblWebsite;
@@ -219,6 +188,5 @@
         internal System.Windows.Forms.PictureBox picBxLogo;
         internal System.Windows.Forms.LinkLabel lnkLblIcons;
         internal System.Windows.Forms.Label lblIcons;
-        internal System.Windows.Forms.LinkLabel lnkLblControls;
     }
 }

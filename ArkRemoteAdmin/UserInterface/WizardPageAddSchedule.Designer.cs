@@ -34,8 +34,8 @@
             this.label3 = new System.Windows.Forms.Label();
             this.tbxName = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.rdbBroadcast = new System.Windows.Forms.RadioButton();
             this.rdbChat = new System.Windows.Forms.RadioButton();
+            this.rdbBroadcast = new System.Windows.Forms.RadioButton();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.grpSchedule = new System.Windows.Forms.GroupBox();
             this.dtpDay = new System.Windows.Forms.DateTimePicker();
@@ -56,7 +56,7 @@
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 25F));
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 100F));
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 145F));
             this.tableLayoutPanel.Controls.Add(this.label1, 1, 1);
             this.tableLayoutPanel.Controls.Add(this.label2, 1, 2);
             this.tableLayoutPanel.Controls.Add(this.label3, 1, 3);
@@ -132,6 +132,16 @@
             this.panel1.Size = new System.Drawing.Size(200, 23);
             this.panel1.TabIndex = 8;
             // 
+            // rdbChat
+            // 
+            this.rdbChat.AutoSize = true;
+            this.rdbChat.Location = new System.Drawing.Point(82, 3);
+            this.rdbChat.Name = "rdbChat";
+            this.rdbChat.Size = new System.Drawing.Size(93, 17);
+            this.rdbChat.TabIndex = 1;
+            this.rdbChat.Text = "Chat Message";
+            this.rdbChat.UseVisualStyleBackColor = true;
+            // 
             // rdbBroadcast
             // 
             this.rdbBroadcast.AutoSize = true;
@@ -143,16 +153,6 @@
             this.rdbBroadcast.TabStop = true;
             this.rdbBroadcast.Text = "Broadcast";
             this.rdbBroadcast.UseVisualStyleBackColor = true;
-            // 
-            // rdbChat
-            // 
-            this.rdbChat.AutoSize = true;
-            this.rdbChat.Location = new System.Drawing.Point(82, 3);
-            this.rdbChat.Name = "rdbChat";
-            this.rdbChat.Size = new System.Drawing.Size(93, 17);
-            this.rdbChat.TabIndex = 1;
-            this.rdbChat.Text = "Chat Message";
-            this.rdbChat.UseVisualStyleBackColor = true;
             // 
             // richTextBox1
             // 
@@ -264,6 +264,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel);
             this.Name = "WizardPageAddSchedule";
+            this.pageTitle = "Add a schedule";
             this.tableLayoutPanel.ResumeLayout(false);
             this.tableLayoutPanel.PerformLayout();
             this.panel1.ResumeLayout(false);

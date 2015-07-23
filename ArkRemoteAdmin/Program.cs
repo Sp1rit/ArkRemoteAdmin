@@ -17,6 +17,7 @@ namespace ArkRemoteAdmin
         static void Main(string[] args)
         {
             Application.ThreadException += Application_ThreadException;
+            //Data.Data.Upgrade();
             Settings.Load();
             Data.Data.Load();
 

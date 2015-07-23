@@ -70,7 +70,7 @@
     <Compile Include="App.cs" />
     <Compile Include="ErrorHandler.cs" />
     <Compile Include="Logging.cs" />
-    <Compile Include="SourceRcon\ArkRcon.cs" />
+    <Compile Include="SourceRcon\RconClient.cs" />
     <Compile Include="SourceRcon\PacketType.cs" />
     <Compile Include="SourceRcon\Rcon.cs" />
     <Compile Include="SourceRcon\RconPacket.cs" />
@@ -118,12 +118,6 @@
     </Compile>
     <Compile Include="UserInterface\Modules\Server.Designer.cs">
       <DependentUpon>Server.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UserInterface\ScheduleAdd.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UserInterface\ScheduleAdd.Designer.cs">
-      <DependentUpon>ScheduleAdd.cs</DependentUpon>
     </Compile>
     <Compile Include="UserInterface\FormMain.cs">
       <SubType>Form</SubType>
@@ -189,9 +183,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserInterface\Modules\Server.resx">
       <DependentUpon>Server.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserInterface\ScheduleAdd.resx">
-      <DependentUpon>ScheduleAdd.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserInterface\FormMain.resx">
       <DependentUpon>FormMain.cs</DependentUpon>

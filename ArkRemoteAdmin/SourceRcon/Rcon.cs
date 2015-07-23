@@ -74,8 +74,10 @@ namespace ArkRemoteAdmin.SourceRcon
 
             // Send
             socket.Send(packet);
+
             // Receive
             byte[] buffer = new byte[socket.ReceiveBufferSize], data;
+            int size = -1, counter = 0;
             using (MemoryStream ms = new MemoryStream())
             {
                 do
@@ -83,14 +85,18 @@ namespace ArkRemoteAdmin.SourceRcon
                     int count = socket.Receive(buffer);
                     ms.Write(buffer, 0, count);
 
-                    if (ms.Length == 4356)
-                        Thread.Sleep(100);
-                } while (socket.Available > 0);
+                    if (size == -1 && ms.Length >= 4)
+                        size = ms.ToArray().ToInt32(0);
+
+                    if (socket.Available == 0 && (size > -1 && size + 4 > ms.Length))
+                    {
+                        Thread.Sleep(50);
+                        if (counter++ >= 3)
+                            break;
+                    }
+                } while (socket.Available > 0 || (size > -1 && size + 4 > ms.Length));
 
                 data = ms.ToArray();
-
-                // Check package
-
             }
 
             return (RconPacket)data;

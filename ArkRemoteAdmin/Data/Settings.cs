@@ -14,7 +14,7 @@ namespace ArkRemoteAdmin.Data
 {
     static class Settings
     {
-        private static readonly FileInfo SettingsFile = new FileInfo(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "ArkRemoteAdmin", "Settings.xml"));
+        private static readonly FileInfo SettingsFile = new FileInfo(Path.Combine(Data.AppDataPath.FullName, "Settings.xml"));
 
         public static void Load()
         {
@@ -39,6 +39,9 @@ namespace ArkRemoteAdmin.Data
 
         public static void Save()
         {
+            if (!SettingsFile.Directory.Exists)
+                SettingsFile.Directory.Create();
+
             XDocument xDoc = new XDocument(
                 new XElement("Settings",
                     new XElement("General",

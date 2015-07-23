@@ -11,8 +11,29 @@ namespace ArkRemoteAdmin.Data
 {
     static class Data
     {
+        //public static readonly DirectoryInfo OldAppDataPath = new DirectoryInfo(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "ArkRemoteAdmin"));
         public static readonly DirectoryInfo AppDataPath = new DirectoryInfo(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "ArkRemoteAdmin"));
         public static readonly DirectoryInfo DataDirectory = new DirectoryInfo(Path.Combine(AppDataPath.FullName, "Data"));
+
+        //public static void Upgrade()
+        //{
+        //    try
+        //    {
+        //        if (OldAppDataPath.Exists)
+        //            OldAppDataPath.MoveTo(AppDataPath.Parent.FullName);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        new BssFramework.Windows.Forms.TaskDialog()
+        //        {
+        //            WindowTitle = "Uprgade failed",
+        //            MainInstruction = "Could not move the settings to local appdata.",
+        //            Content = "Your settings will not be present and have to be re-entered.",
+        //            MainIcon = BssFramework.Windows.Forms.TaskDialogIcon.Error,
+        //            CommonButtons = BssFramework.Windows.Forms.TaskDialogCommonButtons.Ok,
+        //        }.Show();
+        //    }
+        //}
 
         public static void Load()
         {

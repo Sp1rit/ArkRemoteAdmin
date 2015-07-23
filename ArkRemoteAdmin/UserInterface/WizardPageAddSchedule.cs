@@ -57,7 +57,7 @@ namespace ArkRemoteAdmin.UserInterface
             {
                 if (rdbMinute.Checked) nudMinutes.Value = value.Minutes;
                 else if (rdbHour.Checked) dtpHour.Value = new DateTime(1753, 1, 1, 0, value.Minutes, value.Seconds);
-                else dtpHour.Value = new DateTime(1753, 1, 1, value.Hours, value.Minutes, value.Seconds);
+                else dtpDay.Value = new DateTime(1753, 1, 1, value.Hours, value.Minutes, value.Seconds);
             }
         }
 
