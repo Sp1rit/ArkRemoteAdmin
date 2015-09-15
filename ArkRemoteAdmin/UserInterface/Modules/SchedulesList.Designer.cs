@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SchedulesList));
             this.lvSchedules = new BssFramework.Windows.Forms.ListViewEx();
-            this.colScheduleServer = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colScheduleName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colScheduleMessage = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colScheduleType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -61,7 +60,6 @@
             // lvSchedules
             // 
             this.lvSchedules.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.colScheduleServer,
             this.colScheduleName,
             this.colScheduleMessage,
             this.colScheduleType});
@@ -78,11 +76,6 @@
             this.lvSchedules.UseCompatibleStateImageBehavior = false;
             this.lvSchedules.View = System.Windows.Forms.View.Details;
             this.lvSchedules.SelectedIndexChanged += new System.EventHandler(this.lvSchedules_SelectedIndexChanged);
-            // 
-            // colScheduleServer
-            // 
-            this.colScheduleServer.Text = "Server";
-            this.colScheduleServer.Width = 105;
             // 
             // colScheduleName
             // 
@@ -109,7 +102,7 @@
             this.editBroadcastToolStripMenuItem,
             this.deleteBroadcastToolStripMenuItem});
             this.cmsSchedule.Name = "contextMenuStrip";
-            this.cmsSchedule.Size = new System.Drawing.Size(163, 148);
+            this.cmsSchedule.Size = new System.Drawing.Size(163, 126);
             this.cmsSchedule.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip_Opening);
             // 
             // runNowToolStripMenuItem
@@ -302,7 +295,6 @@
         private System.Windows.Forms.ToolStripMenuItem editBroadcastToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteBroadcastToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator tsSeparator1;
-        private System.Windows.Forms.ColumnHeader colScheduleServer;
         private System.Windows.Forms.ToolStripMenuItem runNowToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripButton tsbRun;

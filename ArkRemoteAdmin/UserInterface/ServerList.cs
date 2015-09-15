@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Linq;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using ArkRemoteAdmin.Data;
 using BssFramework.Windows.Forms;
+using ArkRcon = ArkRemoteAdmin.SourceRcon.HighLevel.ArkRcon;
 
 namespace ArkRemoteAdmin.UserInterface
 {
@@ -56,6 +58,12 @@ namespace ArkRemoteAdmin.UserInterface
                 e.Cancel = true;
         }
 
+        private void lvServers_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+                connectToolStripMenuItem_Click(sender, EventArgs.Empty);
+        }
+
         private void connectToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Server server = GetSelectedServer();
@@ -63,12 +71,12 @@ namespace ArkRemoteAdmin.UserInterface
             {
                 try
                 {
-                    if (Rcon.Connect(server))
+                    if (ArkRcon.Connect(server))
                         Close();
                 }
                 catch (Exception ex)
                 {
-                   new TaskDialog()
+                    new TaskDialog()
                     {
                         WindowTitle = "Connection failed",
                         MainInstruction = ex.Message,
@@ -85,7 +93,7 @@ namespace ArkRemoteAdmin.UserInterface
         {
             Server server = GetSelectedServer();
             if (server != null)
-                Clipboard.SetText(string.Format("{0}:{1}", server.Host, server.Port));
+                Clipboard.SetText($"{server.Host}:{server.Port}");
         }
 
         private void editServerToolStripMenuItem_Click(object sender, EventArgs e)
@@ -106,6 +114,9 @@ namespace ArkRemoteAdmin.UserInterface
                 if (ShowServerDeletionDialog() == DialogResult.Yes)
                 {
                     Data.Data.Remove(server);
+                    foreach (var schedule in Data.Data.Schedules.Where(s => s.ServerId == server.Id))
+                        Data.Data.Remove(schedule);
+
                     RefreshList();
                 }
             }

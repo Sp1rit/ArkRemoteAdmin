@@ -1,35 +1,73 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using ArkRemoteAdmin.Data;
+using ArkRemoteAdmin.SourceRcon.HighLevel.Commands;
+using ArkRcon = ArkRemoteAdmin.SourceRcon.HighLevel.ArkRcon;
 
 namespace ArkRemoteAdmin.UserInterface.Modules
 {
     public partial class Chat : UserControl
     {
         public Action<string, StatusType> SetStatus;
-        private readonly SynchronizationContext syncContext;
+        private readonly SynchronizationContext SyncContext;
 
         public Chat()
         {
             InitializeComponent();
-            syncContext = SynchronizationContext.Current;
-            Rcon.Connected += Rcon_Connected;
-            Rcon.Disconnected += Rcon_Disconnected;
+            comboBox1.SelectedIndex = 0;
+            SyncContext = SynchronizationContext.Current;
+
+            ArkRcon.Client.Connected += Client_Connected;
+            ArkRcon.Client.Disconnected += Client_Disconnected;
+            ArkRcon.PlayersRefreshed += Rcon_PlayersRefreshed;
+            ArkRcon.ChatMessages += Rcon_ChatMessages;
         }
 
-        private void Rcon_Connected(object sender, EventArgs e)
+        private void Rcon_ChatMessages(object sender, string e)
         {
-            syncContext.Send(state =>
+            if (!string.IsNullOrEmpty(e))
             {
-                ckbGetChat.Checked = Rcon.Server.GetChat;
-                StartChat();
+                Logging.LogChat(e);
+                SyncContext.Send(state =>
+                {
+                    rtbLog.AppendText(e + Environment.NewLine);
+                    rtbLog.SelectionStart = rtbLog.Text.Length;
+                    rtbLog.ScrollToCaret();
+                }, null);
+            }
+        }
+
+        private void Rcon_PlayersRefreshed(object sender, System.Collections.Generic.List<Player> players)
+        {
+            SyncContext.Send(state =>
+            {
+                comboBox1.Items.Clear();
+                comboBox1.Items.Add(new { Key = "Everyone", Value = (Player)null });
+                comboBox1.Items.AddRange(players.Select(p => new { Key = p.Name, Value = p }).ToArray());
+                comboBox1.SelectedIndex = 0;
             }, null);
         }
 
-        private void Rcon_Disconnected(object sender, EventArgs e)
+        private void Client_Disconnected(object sender, bool e)
         {
-            syncContext.Send(state => StopChat(), null);
+            SyncContext.Send(state =>
+            {
+                rtbLog.Clear();
+                rtbMessage.Clear();
+                ArkRcon.StopChatReceiver();
+            }, null);
+        }
+
+        private void Client_Connected(object sender, EventArgs e)
+        {
+            SyncContext.Send(state =>
+            {
+                ckbGetChat.Checked = ArkRcon.ConnectedServer.GetChat;
+                if (ArkRcon.ConnectedServer.GetChat)
+                    ArkRcon.StartChatReceiver();
+            }, null);
         }
 
         private void btnSend_Click(object sender, EventArgs e)
@@ -37,77 +75,46 @@ namespace ArkRemoteAdmin.UserInterface.Modules
             SendMessage();
         }
 
-        private void tbxMessage_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                SendMessage();
-                e.Handled = true;
-                e.SuppressKeyPress = true;
-            }
-        }
-
         private void ckbGetChat_CheckedChanged(object sender, EventArgs e)
         {
             if (ckbGetChat.Checked)
-                StartChat();
+                ArkRcon.StartChatReceiver();
             else
-                timerChat.Stop();
+                ArkRcon.StopChatReceiver();
 
-            Rcon.Server.GetChat = ckbGetChat.Checked;
-            Data.Data.Set(Rcon.Server);
+            ArkRcon.ConnectedServer.GetChat = ckbGetChat.Checked;
+            Data.Data.Set(ArkRcon.ConnectedServer);
         }
 
-        private async void timerChat_Tick(object sender, EventArgs e)
+        private void SendMessage()
         {
-            if (!Rcon.IsConnected)
+            if (!string.IsNullOrEmpty(rtbMessage.Text))
             {
-                timerChat.Stop();
-                return;
-            }
+                string message = rtbMessage.Text.ToRcon();
+                if (!string.IsNullOrEmpty(ArkRcon.ConnectedServer.ChatName))
+                    message = ArkRcon.ConnectedServer.ChatName + ": " + message;
 
-            string chatLog = await Rcon.GetChat();
-            if (!string.IsNullOrEmpty(chatLog))
-            {
-                Logging.LogChat(chatLog);
-                rtbLog.AppendText(chatLog + Environment.NewLine);
-            }
-        }
-
-        private async void SendMessage()
-        {
-            if (!string.IsNullOrEmpty(tbxMessage.Text))
-            {
-                bool done = await Rcon.SendChatMessage(tbxMessage.Text);
-
-                if (done)
-                {
-                    tbxMessage.Clear();
-                    SetStatus("Message sent", StatusType.Ok);
-                }
+                if (comboBox1.SelectedIndex > 0)
+                    ArkRcon.Client.ExecuteCommandAsync(new ServerChatTo(((dynamic)comboBox1.SelectedItem).Value.SteamId, message), MessageSent);
                 else
-                    SetStatus("Message could not be sent", StatusType.Error);
+                    ArkRcon.Client.ExecuteCommandAsync(new ServerChat(message), MessageSent);
             }
         }
 
-        public void StartChat()
+        private void MessageSent(object sender, SourceRcon.HighLevel.CommandExecutedEventArgs e)
         {
-            if (ckbGetChat.Checked)
-                timerChat.Start();
+            if (e.Successful)
+            {
+                SyncContext.Send(state => rtbMessage.Clear(), null);
+                SetStatus("Message sent", StatusType.Ok);
+            }
+            else
+                SetStatus("Message could not be sent", StatusType.Error);
         }
 
-        public void StopChat()
+        private void rtbMessage_TextChanged(object sender, EventArgs e)
         {
-            timerChat.Stop();
-            rtbLog.Clear();
-            tbxMessage.Clear();
-        }
-
-        private void tbxMessage_TextChanged(object sender, EventArgs e)
-        {
-            btnSend.Enabled = !string.IsNullOrEmpty(tbxMessage.Text);
+            btnSend.Enabled = !string.IsNullOrEmpty(rtbMessage.Text);
         }
     }
-
-
 }

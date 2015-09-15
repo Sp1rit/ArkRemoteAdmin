@@ -40,7 +40,7 @@ namespace ArkRemoteAdmin.SourceRcon
             packet.Size.ToLittleEndian().CopyTo(buffer, 0);
             packet.Id.ToLittleEndian().CopyTo(buffer, 4);
             ((int)packet.Type).ToLittleEndian().CopyTo(buffer, 8);
-            Encoding.UTF8.GetBytes(packet.Body).CopyTo(buffer, 12);
+            Encoding.ASCII.GetBytes(packet.Body).CopyTo(buffer, 12);
             // TODO: End with empty byte?
 
             return buffer;
@@ -51,7 +51,7 @@ namespace ArkRemoteAdmin.SourceRcon
             int size = data.ToInt32(0);
             int id = data.ToInt32(4);
             PacketType type = (PacketType)data.ToInt32(8);
-            string body = Encoding.UTF8.GetString(data, 12, size - 10);
+            string body = Encoding.ASCII.GetString(data, 12, size - 10);
 
             return new RconPacket(id, type, body);
         }

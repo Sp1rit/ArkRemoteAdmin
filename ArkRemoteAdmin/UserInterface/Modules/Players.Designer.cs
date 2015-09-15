@@ -111,7 +111,7 @@ namespace ArkRemoteAdmin.UserInterface
             this.addToWhitelistToolStripMenuItem,
             this.removeFromWhitelistToolStripMenuItem});
             this.cmsPlayer.Name = "cmsPlayer";
-            this.cmsPlayer.Size = new System.Drawing.Size(194, 198);
+            this.cmsPlayer.Size = new System.Drawing.Size(194, 220);
             this.cmsPlayer.Opening += new System.ComponentModel.CancelEventHandler(this.cmsPlayer_Opening);
             // 
             // openSteamProfileToolStripMenuItem

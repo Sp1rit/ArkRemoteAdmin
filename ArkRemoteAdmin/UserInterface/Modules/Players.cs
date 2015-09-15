@@ -9,34 +9,48 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ArkRemoteAdmin.SourceRcon.HighLevel.Commands;
 using BssFramework.Windows.Forms;
+using ArkRcon = ArkRemoteAdmin.SourceRcon.HighLevel.ArkRcon;
 
 namespace ArkRemoteAdmin.UserInterface
 {
+    //TODO: Start/Stop player refresh, pause on reconnect
     public partial class Players : UserControl
     {
         public Action<string, StatusType> SetStatus;
-        private SynchronizationContext syncContext;
+        private readonly SynchronizationContext syncContext;
 
         public Players()
         {
             InitializeComponent();
+
             toolStrip.Renderer = new SevenToolStripRenderer();
             cmsPlayer.Renderer = new SevenToolStripRenderer();
             syncContext = SynchronizationContext.Current;
 
-            Rcon.Connected += Rcon_Connected;
-            Rcon.Disconnected += Rcon_Disconnected;
+            ArkRcon.Client.Connected += Client_Connected;
+            ArkRcon.Client.Disconnected += Client_Disconnected;
+            ArkRcon.PlayersRefreshed += Rcon_PlayersRefreshed;
         }
 
-        private async void Rcon_Connected(object sender, EventArgs e)
+        private void Client_Connected(object sender, EventArgs e)
         {
-            await RefreshPlayers();
+            ArkRcon.StartPlayerRefresh();
         }
 
-        private void Rcon_Disconnected(object sender, EventArgs e)
+        private void Client_Disconnected(object sender, bool e)
         {
+            ArkRcon.StopPlayerRefresh();
             ClearPlayers();
+        }
+
+        private void Rcon_PlayersRefreshed(object sender, List<Player> players)
+        {
+            syncContext.Post(state =>
+            {
+                SetPlayers(players);
+            }, null);
         }
 
         private void cmsPlayer_Opening(object sender, CancelEventArgs e)
@@ -70,12 +84,9 @@ namespace ArkRemoteAdmin.UserInterface
 
         #region Menu Commands
 
-        private async void tsbRefresh_Click(object sender, EventArgs e)
+        private void tsbRefresh_Click(object sender, EventArgs e)
         {
-            if (await RefreshPlayers() > 0)
-                SetStatus("Players refreshed", StatusType.Ok);
-            else
-                SetStatus("No players connected", StatusType.Warning);
+            RefreshPlayers();
         }
 
         private void openSteamProfileToolStripMenuItem_Click(object sender, EventArgs e)
@@ -83,126 +94,122 @@ namespace ArkRemoteAdmin.UserInterface
             Player[] players = GetSelectedPlayers();
 
             foreach (var player in players)
-                Process.Start(string.Format("http://steamcommunity.com/profiles/{0}", player.SteamId));
+                Process.Start($"http://steamcommunity.com/profiles/{player.SteamId}");
         }
 
         private void copyNameToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Player[] players = GetSelectedPlayers();
-            Clipboard.SetText(string.Join(Environment.NewLine, players.Select(p => p.Name)));
+            if (players.Length > 0)
+            {
+                string text = string.Join(Environment.NewLine, players.Select(p => p.Name));
+                Clipboard.SetText(text ?? "");
+            }
         }
 
         private void copySteamIdToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Player[] players = GetSelectedPlayers();
-            Clipboard.SetText(string.Join(Environment.NewLine, players.Select(p => p.SteamId)));
+            if (players.Length > 0)
+            {
+                string text = string.Join(Environment.NewLine, players.Select(p => p.SteamId));
+                Clipboard.SetText(text ?? "");
+            }
         }
 
-        private async void kickToolStripMenuItem_Click(object sender, EventArgs e)
+        private void kickToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Player[] players = GetSelectedPlayers();
-            List<Player> donePlayers = new List<Player>(), failedPlayers = new List<Player>();
 
             foreach (var player in players)
-            {
-                if (await player.Kick())
-                    donePlayers.Add(player);
-                else
-                    failedPlayers.Add(player);
-            }
-
-            if (donePlayers.Count > 0)
-                SetStatus(string.Format("Player(s) {0} kicked.", string.Join(", ", donePlayers.Select(p => p.Name))), StatusType.Ok);
-            if (failedPlayers.Count > 0)
-                SetStatus(string.Format("Player(s) {0} could not be kicked!", string.Join(", ", failedPlayers.Select(p => p.Name))), StatusType.Error);
-
-            await RefreshPlayers();
+                player.Kick(PlayerKicked);
         }
 
-        private async void banToolStripMenuItem_Click(object sender, EventArgs e)
+        private void PlayerKicked(object sender, SourceRcon.HighLevel.CommandExecutedEventArgs e)
         {
-            Player[] players = GetSelectedPlayers();
-            List<Player> donePlayers = new List<Player>(), failedPlayers = new List<Player>();
-
-            foreach (var player in players)
+            if (e.Successful)
             {
-                if (await player.Ban())
-                    donePlayers.Add(player);
-                else
-                    failedPlayers.Add(player);
+                SetStatus("Player kicked", StatusType.Ok);
+                RefreshPlayers();
             }
-            Data.Data.Set(Rcon.Server);
-
-            if (donePlayers.Count > 0)
-                SetStatus(string.Format("Player(s) {0} banned.", string.Join(", ", donePlayers.Select(p => p.Name))), StatusType.Ok);
-            if (failedPlayers.Count > 0)
-                SetStatus(string.Format("Player(s) {0} could not be banned!", string.Join(", ", failedPlayers.Select(p => p.Name))), StatusType.Error);
-
-            await RefreshPlayers();
+            else
+                SetStatus("Player could not be kicked", StatusType.Error);
         }
 
-        private async void unbanToolStripMenuItem_Click(object sender, EventArgs e)
+        private void banToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Player[] players = GetSelectedPlayers();
-            List<Player> donePlayers = new List<Player>(), failedPlayers = new List<Player>();
 
             foreach (var player in players)
-            {
-                if (await player.Unban())
-                    donePlayers.Add(player);
-                else
-                    failedPlayers.Add(player);
-            }
-            Data.Data.Set(Rcon.Server);
-
-            if (donePlayers.Count > 0)
-                SetStatus(string.Format("Player(s) {0} unbanned.", string.Join(", ", donePlayers.Select(p => p.Name))), StatusType.Ok);
-            if (failedPlayers.Count > 0)
-                SetStatus(string.Format("Player(s) {0} could not be unbanned!", string.Join(", ", failedPlayers.Select(p => p.Name))), StatusType.Error);
-
-            await RefreshPlayers();
+                player.Ban(PlayerBanned);
         }
 
-        private async void addToWhitelistToolStripMenuItem_Click(object sender, EventArgs e)
+        private void PlayerBanned(object sender, SourceRcon.HighLevel.CommandExecutedEventArgs e)
         {
-            Player[] players = GetSelectedPlayers();
-            List<Player> donePlayers = new List<Player>(), failedPlayers = new List<Player>();
-
-            foreach (var player in players)
+            if (e.Successful)
             {
-                if (await player.AddToWhitelist())
-                    donePlayers.Add(player);
-                else
-                    failedPlayers.Add(player);
+                SetStatus("Player banned", StatusType.Ok);
+                RefreshPlayers();
             }
-
-            if (donePlayers.Count > 0)
-                SetStatus(string.Format("Player(s) {0} added to whitelist.", string.Join(", ", donePlayers.Select(p => p.Name))), StatusType.Ok);
-            if (failedPlayers.Count > 0)
-                SetStatus(string.Format("Player(s) {0} could not be added to whitelist!", string.Join(", ", failedPlayers.Select(p => p.Name))), StatusType.Error);
-
-            await RefreshPlayers();
+            else
+                SetStatus("Player could not be banned", StatusType.Error);
         }
 
-        private async void removeFromWhitelistToolStripMenuItem_Click(object sender, EventArgs e)
+        private void unbanToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Player[] players = GetSelectedPlayers();
-            List<Player> donePlayers = new List<Player>(), failedPlayers = new List<Player>();
 
             foreach (var player in players)
+                player.Unban(PlayerUnbanned);
+        }
+
+        private void PlayerUnbanned(object sender, SourceRcon.HighLevel.CommandExecutedEventArgs e)
+        {
+            if (e.Successful)
             {
-                if (await player.RemoveFromWhitelist())
-                    donePlayers.Add(player);
-                else
-                    failedPlayers.Add(player);
+                SetStatus("Player unbanned", StatusType.Ok);
+                RefreshPlayers();
             }
+            else
+                SetStatus("Player could not be unbanned", StatusType.Error);
+        }
 
-            if (donePlayers.Count > 0)
-                SetStatus(string.Format("Player(s) {0} removed from whitelist.", string.Join(", ", donePlayers.Select(p => p.Name))), StatusType.Ok);
-            if (failedPlayers.Count > 0)
-                SetStatus(string.Format("Player(s) {0} could not be removed from whitelist!", string.Join(", ", failedPlayers.Select(p => p.Name))), StatusType.Error);
+        private void addToWhitelistToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Player[] players = GetSelectedPlayers();
 
-            await RefreshPlayers();
+            foreach (var player in players)
+                player.AddToWhitelist(PlayerAddedToWhitelist);
+        }
+
+        private void PlayerAddedToWhitelist(object sender, SourceRcon.HighLevel.CommandExecutedEventArgs e)
+        {
+            if (e.Successful)
+            {
+                SetStatus("Player added to whitelist.", StatusType.Ok);
+                RefreshPlayers();
+            }
+            else
+                SetStatus("Player could not be added to whitelist", StatusType.Error);
+        }
+
+        private void removeFromWhitelistToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Player[] players = GetSelectedPlayers();
+
+            foreach (var player in players)
+                player.RemoveFromWhitelist(PlayerRemovedFromWhitelist);
+        }
+
+        private void PlayerRemovedFromWhitelist(object sender, SourceRcon.HighLevel.CommandExecutedEventArgs e)
+        {
+            if (e.Successful)
+            {
+                SetStatus("Player removed from whitelist", StatusType.Ok);
+                RefreshPlayers();
+            }
+            else
+                SetStatus("Player could not be removed from whitelist", StatusType.Error);
         }
 
         #endregion // Menu Commands
@@ -216,33 +223,42 @@ namespace ArkRemoteAdmin.UserInterface
             return players;
         }
 
-        private Player GetSelectedPlayer()
+        private void RefreshPlayers()
         {
-            if (lvPlayers.SelectedItems.Count > 0)
-                return lvPlayers.SelectedItems[0].Tag as Player;
-
-            return null;
+            ArkRcon.Client.ExecuteCommandAsync(new ListPlayers(), PlayersListed);
         }
 
-        private async Task<int> RefreshPlayers()
+        private void PlayersListed(object sender, SourceRcon.HighLevel.CommandExecutedEventArgs e)
         {
-            var players = await Rcon.ListPlayers();
-
-            syncContext.Send(state =>
+            if (e.Successful)
             {
-                lvPlayers.Items.Clear();
-                if (players.Length > 0)
-                    lvPlayers.Items.AddRange(players.Select(p => new ListViewItem(new[] { p.Name, p.SteamId }) { Tag = p, Group = lvPlayers.Groups["lvgOnline"] }).ToArray());
-                lvPlayers.Items.AddRange(Rcon.Server.BannedPlayers.Select(p => new ListViewItem(new[] {p.Name, p.SteamId}) {Tag = p, Group = lvPlayers.Groups["lvgBanned"]}).ToArray());
-                lvPlayers_SelectedIndexChanged(this, new EventArgs());
-            }, null);
+                List<Player> players = ListPlayers.ParsePlayers(e.Response);
 
-            return players.Length;
+                syncContext.Send(state =>
+                {
+                    SetPlayers(players);
+                }, null);
+
+                //if (players.Count > 0)
+                //    SetStatus("Players refreshed", StatusType.Ok);
+                //else
+                //    SetStatus("No players connected", StatusType.Warning);
+            }
         }
 
         private void ClearPlayers()
         {
             syncContext.Send(state => lvPlayers.Items.Clear(), null);
+        }
+
+        private void SetPlayers(List<Player> players)
+        {
+            lvPlayers.Items.Clear();
+            if (players.Count > 0)
+                lvPlayers.Items.AddRange(players.Select(p => new ListViewItem(new[] { p.Name, p.SteamId }) { Name = p.SteamId, Tag = p, Group = lvPlayers.Groups["lvgOnline"] }).ToArray());
+            lvPlayers.Items.AddRange(ArkRcon.ConnectedServer.BannedPlayers.Select(p => new ListViewItem(new[] { p.Name, p.SteamId }) { Name = p.SteamId, Tag = p, Group = lvPlayers.Groups["lvgBanned"] }).ToArray());
+            lvPlayers.Groups["lvgOnline"].Header = "Online Players (" + lvPlayers.Groups["lvgOnline"].Items.Count + ")";
+            lvPlayers_SelectedIndexChanged(this, new EventArgs());
         }
 
         #endregion // Internal Methods

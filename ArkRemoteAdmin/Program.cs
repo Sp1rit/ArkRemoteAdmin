@@ -5,6 +5,7 @@ using ArkRemoteAdmin.Data;
 using ArkRemoteAdmin.UserInterface;
 using BssFramework.Windows.Forms;
 using Microsoft.VisualBasic.ApplicationServices;
+using Quartz;
 
 namespace ArkRemoteAdmin
 {
@@ -21,15 +22,27 @@ namespace ArkRemoteAdmin
             Settings.Load();
             Data.Data.Load();
 
+            IScheduler scheduler = Quartz.Impl.StdSchedulerFactory.GetDefaultScheduler();
+            scheduler.Start();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new WizardAddSchedule());
+            //Application.Run(new Form1());
             new Program().Run(args);
+
+            scheduler.Shutdown();
+        }
+
+        private void Test(object sender, SourceRcon.HighLevel.CommandExecutedEventArgs e)
+        {
+            System.Console.WriteLine($"Command executed: {e.Successful} {e.Error} {e.Command}");
         }
 
         static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
+#if !DEBUG
             ErrorHandler.CaptureUnhandledException(e.Exception);
+#endif
 
             TaskDialog taskDialog = new TaskDialog();
             taskDialog.WindowTitle = "Unhandled Error";

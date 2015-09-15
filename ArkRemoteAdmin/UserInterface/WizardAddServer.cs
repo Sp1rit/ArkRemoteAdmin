@@ -11,7 +11,7 @@ using ArkRemoteAdmin.Data;
 
 namespace ArkRemoteAdmin.UserInterface
 {
-    public partial class WizardAddServer : dotNetBase.Windows.Forms.Aero.Wizard
+    partial class WizardAddServer : dotNetBase.Windows.Forms.Aero.Wizard
     {
         private readonly WizardPageAddServer wizardPage;
         private readonly Server server;
@@ -35,6 +35,7 @@ namespace ArkRemoteAdmin.UserInterface
             wizardPage.RconPort = server.Port;
             wizardPage.QueryPort = server.QueryPort;
             wizardPage.Password = Encryption.DecryptString(server.Password, "0?NRAnRBm;SWd41BUbKsT7)kN1y=RHLm=DR4ZZUBk&!JF3i\"Ra2Eg,8qwhA0^ydo");
+            wizardPage.ChatName = server.ChatName;
 
             btnAdd.Text = "Edit";
         }
@@ -48,6 +49,7 @@ namespace ArkRemoteAdmin.UserInterface
                 server.Port = wizardPage.RconPort;
                 server.QueryPort = wizardPage.QueryPort;
                 server.Password = Encryption.EncryptString(wizardPage.Password, "0?NRAnRBm;SWd41BUbKsT7)kN1y=RHLm=DR4ZZUBk&!JF3i\"Ra2Eg,8qwhA0^ydo");
+                server.ChatName = wizardPage.ChatName;
                 Data.Data.Set(server);
 
                 DialogResult = DialogResult.OK;

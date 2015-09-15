@@ -99,6 +99,7 @@
             this.lvServers.UseCompatibleStateImageBehavior = false;
             this.lvServers.View = System.Windows.Forms.View.Details;
             this.lvServers.SelectedIndexChanged += new System.EventHandler(this.lvServers_SelectedIndexChanged);
+            this.lvServers.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvServers_MouseDoubleClick);
             // 
             // colName
             // 

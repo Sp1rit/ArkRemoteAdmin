@@ -44,6 +44,8 @@
             this.rdbHour = new System.Windows.Forms.RadioButton();
             this.nudMinutes = new System.Windows.Forms.NumericUpDown();
             this.rdbMinute = new System.Windows.Forms.RadioButton();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.label4 = new System.Windows.Forms.Label();
             this.tableLayoutPanel.SuspendLayout();
             this.panel1.SuspendLayout();
             this.grpSchedule.SuspendLayout();
@@ -64,6 +66,7 @@
             this.tableLayoutPanel.Controls.Add(this.panel1, 2, 3);
             this.tableLayoutPanel.Controls.Add(this.richTextBox1, 2, 2);
             this.tableLayoutPanel.Controls.Add(this.grpSchedule, 1, 4);
+            this.tableLayoutPanel.Controls.Add(this.label4, 3, 2);
             this.tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tableLayoutPanel.Location = new System.Drawing.Point(0, 0);
@@ -101,7 +104,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(94, 60);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Message";
+            this.label2.Text = "Message / Commands";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label3
@@ -125,11 +128,13 @@
             // 
             // panel1
             // 
+            this.tableLayoutPanel.SetColumnSpan(this.panel1, 2);
+            this.panel1.Controls.Add(this.radioButton1);
             this.panel1.Controls.Add(this.rdbChat);
             this.panel1.Controls.Add(this.rdbBroadcast);
             this.panel1.Location = new System.Drawing.Point(128, 90);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(200, 23);
+            this.panel1.Size = new System.Drawing.Size(345, 23);
             this.panel1.TabIndex = 8;
             // 
             // rdbChat
@@ -258,6 +263,25 @@
             this.rdbMinute.Text = "Every                   Minutes";
             this.rdbMinute.UseVisualStyleBackColor = true;
             // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(181, 3);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(119, 17);
+            this.radioButton1.TabIndex = 4;
+            this.radioButton1.Text = "Execute Commands";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(334, 27);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(133, 52);
+            this.label4.TabIndex = 11;
+            this.label4.Text = "If you use \"Execute Commands\" as type make sure you enter one command per line.";
+            // 
             // WizardPageAddSchedule
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -294,5 +318,7 @@
         private System.Windows.Forms.RadioButton rdbHour;
         private System.Windows.Forms.NumericUpDown nudMinutes;
         private System.Windows.Forms.RadioButton rdbMinute;
+        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.Label label4;
     }
 }

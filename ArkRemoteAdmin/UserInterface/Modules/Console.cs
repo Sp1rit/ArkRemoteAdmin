@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading;
 using System.Windows.Forms;
+using ArkRemoteAdmin.SourceRcon.HighLevel.Commands;
+using ArkRcon = ArkRemoteAdmin.SourceRcon.HighLevel.ArkRcon;
 
 namespace ArkRemoteAdmin
 {
@@ -13,22 +15,32 @@ namespace ArkRemoteAdmin
         {
             InitializeComponent();
 
-            Rcon.Disconnected += Rcon_Disconnected;
-            Rcon.CommandExecuted += Rcon_CommandExecuted;
+            ArkRcon.Client.Disconnected += Client_Disconnected;
+            ArkRcon.Client.CommandExecuted += Client_CommandExecuted;
 
             syncContext = SynchronizationContext.Current;
         }
 
-        private void Rcon_Disconnected(object sender, EventArgs e)
+        private void Client_CommandExecuted(object sender, SourceRcon.HighLevel.CommandExecutedEventArgs e)
         {
-            Clear();
+            if (e.Command.Type != SourceRcon.HighLevel.CommandType.GetChat && e.Command.Type != SourceRcon.HighLevel.CommandType.ListPlayers)
+            {
+                string log = $"Command: {e.Command}{Environment.NewLine}Response: {e.Response}{Environment.NewLine}";
+                Logging.LogConsole(log);
+                syncContext.Post(state =>
+                {
+                    try
+                    {
+                        rtbConsoleLog.AppendText(state.ToString() + Environment.NewLine);
+                    }
+                    catch { }
+                }, log);
+            }
         }
 
-        private void Rcon_CommandExecuted(object sender, CommandExecutedEventArgs e)
+        private void Client_Disconnected(object sender, bool e)
         {
-            string log = string.Format("Command: {0}{1}Response: {2}", e.Command, Environment.NewLine, e.Response);
-            Logging.LogConsole(log);
-            syncContext.Post(state => rtbConsoleLog.AppendText(state.ToString() + Environment.NewLine), log);
+            Clear();
         }
 
         private void Clear()
@@ -40,14 +52,16 @@ namespace ArkRemoteAdmin
             }, null);
         }
 
-        private async void btnExecute_Click(object sender, EventArgs e)
+        private void btnExecute_Click(object sender, EventArgs e)
         {
             if (!string.IsNullOrEmpty(tbxCommand.Text))
-            {
-                await Rcon.ExecuteCommand(tbxCommand.Text);
-                SetStatus("Command executed", StatusType.Ok);
-                tbxCommand.Clear();
-            }
+                ArkRcon.Client.ExecuteCommandAsync(new Raw(tbxCommand.Text), CommandExecuted);
+        }
+
+        private void CommandExecuted(object sender, SourceRcon.HighLevel.CommandExecutedEventArgs e)
+        {
+            SetStatus("Command executed", StatusType.Ok);
+            syncContext.Send(state => tbxCommand.Clear(), null);
         }
 
         private void tbxCommand_KeyDown(object sender, KeyEventArgs e)

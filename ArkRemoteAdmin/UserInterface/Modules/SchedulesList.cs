@@ -1,16 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using ArkRemoteAdmin.Data;
 using BssFramework.Windows.Forms;
+using Quartz;
+using ArkRcon = ArkRemoteAdmin.SourceRcon.HighLevel.ArkRcon;
 
 namespace ArkRemoteAdmin.UserInterface.Modules
 {
-    public partial class SchedulesList : UserControl
+    public partial class SchedulesList : UserControl, IJobListener
     {
-        private SynchronizationContext syncContext;
+        private readonly SynchronizationContext syncContext;
 
         public SchedulesList()
         {
@@ -19,20 +23,22 @@ namespace ArkRemoteAdmin.UserInterface.Modules
             toolStrip.Renderer = new SevenToolStripRenderer();
             cmsSchedule.Renderer = new SevenToolStripRenderer();
 
-            Rcon.Connected += Rcon_Connected;
-            Rcon.Disconnected += Rcon_Disconnected;
+            Quartz.Impl.StdSchedulerFactory.GetDefaultScheduler().ListenerManager.AddJobListener(this);
+
+            ArkRcon.Client.Connected += Client_Connected;
+            ArkRcon.Client.Disconnected += Client_Disconnected;
         }
 
-        private void Rcon_Connected(object sender, EventArgs e)
+        private void Client_Disconnected(object sender, bool e)
         {
-            LoadSchedules();
-            ActivateSchedules();
-        }
-
-        private void Rcon_Disconnected(object sender, EventArgs e)
-        {
-            Scheduler.Instance.DeactivateAll();
+            Scheduler.ClearSchedules();
             syncContext.Send(state => lvSchedules.Items.Clear(), null);
+        }
+
+        private void Client_Connected(object sender, EventArgs e)
+        {
+            Scheduler.CreateAndActivateSchedules(Data.Data.Schedules.Where(s => s.ServerId == ArkRcon.ConnectedServer.Id));
+            syncContext.Send(state => LoadSchedules(), null);
         }
 
         private void lvSchedules_SelectedIndexChanged(object sender, EventArgs e)
@@ -69,22 +75,20 @@ namespace ArkRemoteAdmin.UserInterface.Modules
 
         private void tsbAdd_Click(object sender, EventArgs e)
         {
-            (new WizardAddSchedule()).ShowDialog();
-
-            LoadSchedules();
+            using (WizardAddSchedule form = new WizardAddSchedule())
+            {
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    Scheduler.AddSchedule(form.Schedule);
+                    LoadSchedules();
+                }
+            }
         }
 
-        private async void tsbRun_Click(object sender, EventArgs e)
+        private void tsbRun_Click(object sender, EventArgs e)
         {
             Schedule schedule = GetSelectedSchedule();
-
-            if (schedule != null)
-            {
-                if (schedule.MessageType == MessageType.Chat)
-                    await Rcon.SendChatMessage(schedule.Message);
-                else
-                    await Rcon.Broadcast(schedule.Message);
-            }
+            schedule?.Run();
         }
 
         private void tsbEdit_Click(object sender, EventArgs e)
@@ -93,9 +97,14 @@ namespace ArkRemoteAdmin.UserInterface.Modules
 
             if (schedule != null)
             {
-                (new WizardAddSchedule(schedule)).ShowDialog();
-
-                LoadSchedules();
+                using (WizardAddSchedule form = new WizardAddSchedule(schedule))
+                {
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        Scheduler.AddSchedule(form.Schedule);
+                        LoadSchedules();
+                    }
+                }
             }
         }
 
@@ -107,6 +116,7 @@ namespace ArkRemoteAdmin.UserInterface.Modules
             {
                 if (MessageBox.Show("Do you really want to delete this scheduled broadcast?", "Delete Broadcast", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
+                    Scheduler.DeleteSchedule(schedule);
                     Data.Data.Remove(schedule);
                     LoadSchedules();
                 }
@@ -119,7 +129,9 @@ namespace ArkRemoteAdmin.UserInterface.Modules
 
             if (schedule != null)
             {
-                Scheduler.Instance.Activate(schedule);
+                Scheduler.ActivateSchedule(schedule);
+                schedule.Active = true;
+                Data.Data.Set(schedule);
                 LoadSchedules();
             }
         }
@@ -130,7 +142,9 @@ namespace ArkRemoteAdmin.UserInterface.Modules
 
             if (schedule != null)
             {
-                Scheduler.Instance.Deactivate(schedule);
+                Scheduler.DeactivateSchedule(schedule);
+                schedule.Active = false;
+                Data.Data.Set(schedule);
                 LoadSchedules();
             }
         }
@@ -151,21 +165,27 @@ namespace ArkRemoteAdmin.UserInterface.Modules
         {
             lvSchedules.Items.Clear();
 
-            foreach (Schedule schedule in Data.Data.Schedules.Where(s => s.ServerId == Rcon.Server.Id))
-                lvSchedules.Items.Add(new ListViewItem(new[] { schedule.Server.Name, schedule.Name, schedule.Message, schedule.Type.ToString() }) { Tag = schedule, ImageIndex = schedule.Active ? 0 : -1 });
+            foreach (Schedule schedule in Data.Data.Schedules.Where(s => s.ServerId == ArkRcon.ConnectedServer.Id))
+                lvSchedules.Items.Add(new ListViewItem(new[] { schedule.Name, schedule.Message, schedule.Type.ToString() }) { Tag = schedule, ImageIndex = schedule.Active ? 0 : -1 });
 
             lvSchedules_SelectedIndexChanged(this, new EventArgs());
         }
 
-        private void ActivateSchedules()
+        #endregion // Internal Methods
+
+        public void JobToBeExecuted(IJobExecutionContext context)
         {
-            foreach (Schedule schedule in Data.Data.Schedules.Where(s => s.ServerId == Rcon.Server.Id))
-            {
-                if (schedule.Active)
-                    Scheduler.Instance.Activate(schedule);
-            }
+            
         }
 
-        #endregion // Internal Methods
+        public void JobExecutionVetoed(IJobExecutionContext context)
+        {
+            
+        }
+
+        public void JobWasExecuted(IJobExecutionContext context, JobExecutionException jobException)
+        {
+            
+        }
     }
 }

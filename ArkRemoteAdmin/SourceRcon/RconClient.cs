@@ -101,8 +101,17 @@ namespace ArkRemoteAdmin.SourceRcon
             }
             catch (SocketException sEx)
             {
-                Disconnect();
-                OnDisconnected();
+                if (sEx.ErrorCode != 10060 && sEx.ErrorCode != 10004)
+                {
+                    Disconnect();
+                    OnDisconnected();
+                }
+
+                if (sEx.ErrorCode == 10004)
+                {
+                    
+                }
+
                 return null;
             }
             catch (Exception ex)

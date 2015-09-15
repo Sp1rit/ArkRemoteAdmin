@@ -26,11 +26,12 @@ namespace ArkRemoteAdmin.UserInterface
 
         public MessageType MessageType
         {
-            get { return rdbBroadcast.Checked ? MessageType.BroadCast :  MessageType.Chat; }
+            get { return rdbBroadcast.Checked ? MessageType.BroadCast :  rdbChat.Checked ? MessageType.Chat : MessageType.Commands; }
             set
             {
                 if (value == MessageType.BroadCast) rdbBroadcast.Checked = true;
-                else rdbChat.Checked = true;
+                else if (value == MessageType.Chat) rdbChat.Checked = true;
+                else radioButton1.Checked = true;
             }
         }
 

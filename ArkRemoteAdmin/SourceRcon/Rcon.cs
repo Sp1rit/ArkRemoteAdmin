@@ -22,13 +22,13 @@ namespace ArkRemoteAdmin.SourceRcon
         public bool Connect(string host, int port)
         {
             if (string.IsNullOrEmpty(host))
-                throw new ArgumentNullException("host", "The host can not be empty");
+                throw new ArgumentNullException(nameof(host), "The host can not be empty");
             if (port < 1 || port > 655359)
-                throw new ArgumentOutOfRangeException("port", "The provided port is not valid");
+                throw new ArgumentOutOfRangeException(nameof(port), "The provided port is not valid");
 
             if (socket == null)
                 socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.IP);
-            socket.ReceiveTimeout = 5000;
+            socket.ReceiveTimeout = 30000;
             socket.ReceiveBufferSize = 4096;
             socket.SendTimeout = 5000;
             socket.SendBufferSize = 4096;
@@ -54,7 +54,7 @@ namespace ArkRemoteAdmin.SourceRcon
         public bool Authenticate(string password)
         {
             if (string.IsNullOrEmpty(password))
-                throw new ArgumentNullException("password", "The password can not be empty");
+                throw new ArgumentNullException(nameof(password), "The password can not be empty");
 
             if (!Connected)
                 throw new Exception("You must be connected before authenticating");
@@ -67,7 +67,7 @@ namespace ArkRemoteAdmin.SourceRcon
         public RconPacket SendReceive(RconPacket packet)
         {
             if (packet == null)
-                throw new ArgumentNullException("packet");
+                throw new ArgumentNullException(nameof(packet));
 
             if (!Connected)
                 throw new Exception("You must be connected before sending data");
