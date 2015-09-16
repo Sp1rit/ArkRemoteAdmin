@@ -1,0 +1,1138 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>dotNetBase.Windows.Forms</name>
+    </assembly>
+    <members>
+        <member name="T:dotNetBase.Windows.Forms.Aero.glassLabel">
+            <summary>
+            Ein Label welches sofern das Betriebssystem Vista oder höher ist und Aero Glass aktiviert ist einen leuchtenden Text auf dem Glasbereich darstellt.
+            </summary>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.Aero.glassLabel.#ctor">
+            <summary>
+            Initialisiert eine neue Instanz von <see cref="T:dotNetBase.Windows.Forms.Aero.glassLabel"/>.
+            </summary>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.Aero.glassLabel.OnPaint(System.Windows.Forms.PaintEventArgs)">
+            <summary></summary>
+            <param name="e"></param>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.Aero.glassLabel.Text">
+            <summary>
+            Gibt den Text zurück der diesem Element zugeordnet ist oder legt diesen fest.
+            </summary>
+        </member>
+        <member name="T:dotNetBase.Windows.Forms.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="T:dotNetBase.Windows.Forms.ProgressBarState">
+            <summary>
+            Enumeration welche jeden möglichen Status der Progressbar ausgibt.
+            </summary>
+        </member>
+        <member name="F:dotNetBase.Windows.Forms.ProgressBarState.Normal">
+            <summary>
+            Normaler fortschritt welcher über die Eigenschaft <see cref="P:dotNetBase.Windows.Forms.progressOverlay.percentDone"/> prozentual verändert werden kann.
+            </summary>
+        </member>
+        <member name="F:dotNetBase.Windows.Forms.ProgressBarState.Marquee">
+            <summary>
+            Gibt den Fortschritt mithilfe eines Blocks an, der wie eine Laufschrift über eine ProgressBar läuft.
+            </summary>
+        </member>
+        <member name="F:dotNetBase.Windows.Forms.ProgressBarState.None">
+            <summary>
+            Blendet die Progressbar aus.
+            </summary>
+        </member>
+        <member name="T:dotNetBase.Windows.Forms.progressOverlay">
+            <summary>
+            progressOverlay Control welches den Inhalt der Form überdeckt und den Fortschritt einer Aktion darstellt.
+            </summary>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.progressOverlay.#ctor">
+            <summary>
+            Initialisiert eine neue Instanz von <see cref="T:dotNetBase.Windows.Forms.progressOverlay"/>.
+            </summary>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.progressOverlay.showOverlay">
+            <summary>
+            Zeigt das Overlay an.
+            </summary>
+            <seealso cref="M:dotNetBase.Windows.Forms.progressOverlay.hideOverlay"/>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.progressOverlay.hideOverlay">
+            <summary>
+            Entfernt das Overlay von der aktiven Form.
+            </summary>
+            <seealso cref="M:dotNetBase.Windows.Forms.progressOverlay.showOverlay"/>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.progressOverlay.GetDarkGrayImgAttributes">
+            <summary>
+            Gibt Dunkelgraue ImageAttributes zurück.
+            </summary>
+            <returns>Gibt ein ImageAttribut zurück welches zum ausgrauen der Form verwendet wird.</returns>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.progressOverlay.GetFormImage(System.Windows.Forms.Form,System.Drawing.Imaging.ImageAttributes)">
+            <summary>
+            Gibt ein Abbilt der Form wieder.
+            </summary>
+            <param name="Form">Die Form von der das Abbild erzeugt wird.</param>
+            <param name="Attributes">Die ImageAttribute die auf das FormImage angewendet werden sollen.</param>
+            <returns>Gibt ein Bitmap zurück welches die Form darstellt.</returns>
+        </member>
+        <member name="E:dotNetBase.Windows.Forms.progressOverlay.overlayShown">
+            <summary>
+            Event welches aufgerufen wird, nachdem das overlay auf die Form gezeichnet wurde.
+            </summary>
+            <seealso cref="M:dotNetBase.Windows.Forms.progressOverlay.showOverlay"/>
+            <seealso cref="M:dotNetBase.Windows.Forms.progressOverlay.hideOverlay"/>
+        </member>
+        <member name="E:dotNetBase.Windows.Forms.progressOverlay.overlayClosed">
+            <summary>
+            Event welches aufgerufen wird, nachdem das overlay von der Form entfernt wurde.
+            </summary>
+            <seealso cref="M:dotNetBase.Windows.Forms.progressOverlay.hideOverlay"/>
+            <seealso cref="M:dotNetBase.Windows.Forms.progressOverlay.showOverlay"/>
+        </member>
+        <member name="E:dotNetBase.Windows.Forms.progressOverlay.cancelClicked">
+            <summary>
+            Event welches aufgerufen wird, wenn der Abbrechen-Link auf dem Progressdialog geklickt wurde.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.progressOverlay.disableControls">
+            <summary>
+            Gibt zurück oder legt fest, ob die Controls der ownerForm (<see cref="P:dotNetBase.Windows.Forms.progressOverlay.Owner"/>) deaktiviert werden sollen,
+            während das Overlay angezeigt wird.
+            </summary>
+            <remarks>
+            Achtung: Bei vielen Controls auf der ownerForm kann diese Funktion zum kurzzeitigen einfrieren
+            der Form führen.
+            </remarks>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.progressOverlay.Owner">
+            <summary>
+            Gibt die Form zurück auf welcher das Overlay angezeigt werden soll oder legt diese fest.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.progressOverlay.Worker">
+            <summary>
+            Gibt den BackgroundWorker zurück, von welchem der Status abgefragt werden soll oder legt diesen fest.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.progressOverlay.allowClose">
+            <summary>
+            Gibt an, ob die Form, auf welcher das Overlay angezeigt wird, während dem Vorgang geschlossen werden kann.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.progressOverlay.Title">
+            <summary>
+            Gibt den Titel des Overlaydialogs zurück oder legt diesen fest.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.progressOverlay.titleColor">
+            <summary>
+            Gibt die Farbe des <see cref="P:dotNetBase.Windows.Forms.progressOverlay.Title"/> zurück oder legt diese fest.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.progressOverlay.titleFont">
+            <summary>
+            Gibt die Schriftart des <see cref="P:dotNetBase.Windows.Forms.progressOverlay.Title"/> zurück, oder legt diese fest.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.progressOverlay.Description">
+            <summary>
+            Gibt die Beschreibung des Overlaydialogs zurück oder legt diese fest.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.progressOverlay.descriptionColor">
+            <summary>
+            Gibt die Farbe der <see cref="P:dotNetBase.Windows.Forms.progressOverlay.Description"/> zurück, oder legt diese fest.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.progressOverlay.descriptionFont">
+            <summary>
+            Gibt die Schriftart der <see cref="P:dotNetBase.Windows.Forms.progressOverlay.Description"/> zurück oder legt dise fest.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.progressOverlay.showCancel">
+            <summary>
+            Gibt an oder legt fest, ob neben der Fortschrittsanzeige ein Abbrechen-Link angezeigt werden soll.
+            </summary>
+            <seealso cref="E:dotNetBase.Windows.Forms.progressOverlay.cancelClicked"/>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.progressOverlay.cancelText">
+            <summary>
+            Gibt den Text zurück welcher dem Abbrechen-Link zugeordnet ist, oder legt diesen fest.
+            </summary>
+            <seealso cref="E:dotNetBase.Windows.Forms.progressOverlay.cancelClicked"/>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.progressOverlay.Symbol">
+            <summary>
+            Gibt das Bild welches neben dem Titel angezeigt wird zurück oder legt dieses fest.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.progressOverlay.frameColor">
+            <summary>
+            Gibt die Farbe des Rahmens des progressDialogs zurück oder legt diese fest.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.progressOverlay.backColor">
+            <summary>
+            Gibt die Hintergrundfarbe des progressDialogs zurück oder legt diese fest.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.progressOverlay.percentDone">
+            <summary>
+            Gibt den prozentualen Fortschritt zurück oder legt diesen fest.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.progressOverlay.progressState">
+            <summary>
+            Gibt den Status der Progressbar zurück oder legt diesen fest.
+            </summary>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.Internal.smartTagActionListBase.RefreshDesigner">
+            <summary>
+            Refreshes the contets of designer smart tag panel.
+            </summary>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.Internal.smartTagActionListBase.HideDesigner">
+            <summary>
+            Hides the smart tag panel of this component.
+            </summary>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.Internal.smartTagActionListBase.SetPropertyByName(System.Object,System.String,System.Object)">
+            <summary>
+            Sets the specified property of specified control to the given value.
+            Note: by means of Reflection methods, "Undo" and "Menu Updates" in IDE work properly! (donot modify control properties directly through the code, but use this method)
+            </summary>
+            <param name="ComponentObject">The Name of the Component.</param>
+            <param name="propName">The Name from the Property</param>
+            <param name="value">The Value</param>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.Internal.smartTagActionListBase.ClearControlText">
+            <summary>
+            Clears the text of the related Control. Note: this is valid only for Controls (Not Components)
+            </summary>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.Internal.smartTagActionListBase.ClearActionList">
+            <summary>
+            Clears all action items.
+            </summary>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.Internal.smartTagActionListBase.AddActionText(System.String,System.String)">
+            <summary>
+            Adds a static Text item to ActionItems. Call it in GetSortedActionItems() function.
+            </summary>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.Internal.smartTagActionListBase.AddActionProperty(System.String,System.String,System.String,System.String)">
+            <summary>
+            Adds a Property item to ActionItems. Call it in GetSortedActionItems() function.
+            </summary>
+            <param name="memberName">The property name defined in your DesignerActionList (Not your control property!)</param>
+            <param name="category">The Category for this Property.</param>
+            <param name="description">The Description for this Property</param>
+            <param name="displayName">The Displayname for this Property</param>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.Internal.smartTagActionListBase.AddActionMethod(System.String,System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            Adds a Method item to ActionItems. Call it in GetSortedActionItems() function.
+            </summary>
+            <param name="memberName">The property name defined in your DesignerActionList (Not yout control property!)</param>
+            <param name="category">The Category for this Method.</param>
+            <param name="description">The Description for this Method.</param>
+            <param name="displayName">The Displayname for this Mathod.</param>
+            <param name="includeAsDesignerVerb">Set this to True if this Method should used as DesignerVerb, otherwise False.</param>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.Internal.smartTagActionListBase.AddActionHeader(System.String)">
+            <summary>
+            Adds a Header (Category) item to ActionItems. Call it in GetSortedActionItems() function
+            </summary>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.Internal.smartTagActionListBase.GetSortedActionItems">
+            <summary>
+            Usually you should override DefineSortedActionItems() method to define your action items.
+            But if you want, You can override this function to specify your smart tag action items.
+            Call AddActionInit() and then some AddAction*() methods to add your items to ActionItems property.
+            Finally you should return ActionItems.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.Internal.smartTagActionListBase.AddActionItems">
+            <summary>
+            You should Override this method to specify your smart tag action items. Call AddAction*() methods to define your action items in this method.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.Internal.smartTagActionListBase.DesignerService">
+            <summary>
+            Gets access to the Designer Action UI Serice which manages the user interface (UI) for the smart tag panel.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.Internal.smartTagActionListBase.ActionList">
+            <summary>
+            Gets the interal DesignerActionItemCollection of this class which represents a collection if Action Items to display on the smart tag panel.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.Internal.smartTagActionListBase.Container">
+            <summary>
+            Gets the container which sites this Component or Control.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.Internal.smartTagActionListBase.Control">
+            <summary>
+            Gets this Control (if associated Components is a Control).
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.Internal.smartTagActionListBase.RightToLeft">
+            <summary>
+            Note: This property is valid only for Controls (Not Components)
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.Internal.smartTagActionListBase.Font">
+            <summary>
+            This property is valid only for Controls (Not Components)
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.Internal.smartTagActionListBase.Text">
+            <summary>
+            This property is valid only for Controls (Not Components)
+            </summary>
+        </member>
+        <member name="T:dotNetBase.Windows.Forms.promptedTextBox">
+            <summary>
+            Eine erweitere TextBox welche einen Hinweistext anzeigt wenn diese keinen Text enthält.
+            </summary>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.promptedTextBox.#ctor">
+            <summary>
+            Initialisiert eine neue Instanz von <see cref="T:dotNetBase.Windows.Forms.promptedTextBox"/>.
+            </summary>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.promptedTextBox.OnPaint(System.Windows.Forms.PaintEventArgs)">
+            <summary></summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.promptedTextBox.OnTextAlignChanged(System.EventArgs)">
+            <summary></summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.promptedTextBox.OnTextChanged(System.EventArgs)">
+            <summary></summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.promptedTextBox.WndProc(System.Windows.Forms.Message@)">
+            <summary></summary>
+            <param name="m"></param>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.promptedTextBox.PromptText">
+            <summary>
+            Gibt den Text zurück welcher anngezeigt werden soll wenn die TextBox keinen Wert besitzt oder legt diesen fest.
+            </summary>
+        </member>
+        <member name="T:dotNetBase.Windows.Forms.Aero.Wizard">
+            <summary>
+            Ein Assistententemplate mit erweitertem Glassbereich.
+            </summary>
+        </member>
+        <member name="T:dotNetBase.Windows.Forms.formBase">
+            <summary>
+            Eine von <see cref="T:System.Windows.Forms.Form"/> abgeleitete Form welche diese um einige Funktionnalitäten ergänzt.
+            </summary>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.formBase.#ctor">
+            <summary>
+            Initialisiert eine neue Instanz der <see cref="T:dotNetBase.Windows.Forms.formBase"/>.
+            </summary>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.formBase.setProgressStateCore(System.IntPtr,dotNetBase.Windows.Forms.thumbnailProgressState)">
+            <summary>
+            Sets the progress state of the specified window's
+            taskbar button.
+            </summary>
+            <param name="hwnd">The window handle.</param>
+            <param name="state">The progress state.</param>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.formBase.setProgressValueCore(System.IntPtr,System.UInt64,System.UInt64)">
+            <summary>
+            Sets the progress value of the specified window's
+            taskbar button.
+            </summary>
+            <param name="hwnd">The window handle.</param>
+            <param name="current">The current value.</param>
+            <param name="maximum">The maximum value.</param>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.formBase.setTaskBarProgressValue(System.UInt64,System.UInt64)">
+            <summary>
+            Setzt den Fortschritt in dem TaskBarButton des aktuellen Fensters.
+            </summary>
+            <param name="current">Der aktuelle Wert.</param>
+            <param name="maximum">Der maximal Wert.</param>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.formBase.setTaskBarProgressState(dotNetBase.Windows.Forms.thumbnailProgressState)">
+            <summary>
+            Setzt den Status des TaskBarButton des aktuellen Fensters.
+            </summary>
+            <param name="state">Der Fortschrittsstatus.</param>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.formBase.setOverlayIcon(System.Drawing.Image)">
+            <summary>
+            Setzt unter Windows 7 ein Overlayicon in der rechten unteren Ecke des TaskBar Images.
+            </summary>
+            <param name="image16x16">
+            Das Overlayimage welches angezeigt werden soll.
+            <para>Zum entfernen des Overlays diesem Parameter den Wert 'null' (in VB 'Nothing') mitgeben.</para>
+            </param>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.formBase.setOverlayIcon(System.Drawing.Image,System.String)">
+            <summary>
+            Setzt unter Windows 7 ein Overlayicon in der rechten unteren Ecke des TaskBar Images.
+            </summary>
+            <param name="image16x16">
+            Das Overlayimage welches angezeigt werden soll.
+            <para>Zum entfernen des Overlays diesem Parameter den Wert 'null' (in VB 'Nothing') mitgeben.</para>
+            </param>
+            <param name="description">Die Beschreibung zum Overlay.</param>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.formBase.setOverlayIcon(System.Windows.Forms.IWin32Window,System.Drawing.Image,System.String)">
+            <summary>
+            Setzt unter Windows 7 ein Overlayicon in der rechten unteren Ecke des TaskBar Images.
+            </summary>
+            <param name="window">Das Handle des Fensters bei welchen das Overlayicon gesetzt werden soll.</param>
+            <param name="image16x16">
+            Das Overlayimage welches angezeigt werden soll.
+            <para>Zum entfernen des Overlays diesem Parameter den Wert 'null' (in VB 'Nothing') mitgeben.</para>
+            </param>
+            <param name="description">Die Beschreibung zum Overlay.</param>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.formBase.setOverlayIcon(System.Windows.Forms.IWin32Window,System.Drawing.Icon,System.String)">
+            <summary>
+            Setzt unter Windows 7 ein Overlayicon in der rechten unteren Ecke des TaskBar Images.
+            </summary>
+            <param name="window">Das Handle des Fensters bei welchen das Overlayicon gesetzt werden soll.</param>
+            <param name="icon16x16">
+            Das Overlayimage welches angezeigt werden soll.
+            <para>Zum entfernen des Overlays diesem Parameter den Wert 'null' (in VB 'Nothing') mitgeben.</para>
+            </param>
+            <param name="description">Die Beschreibung zum Overlay.</param>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.formBase.setOverlayIcon(System.Drawing.Icon,System.String)">
+            <summary>
+            Setzt unter Windows 7 ein Overlayicon in der rechten unteren Ecke des TaskBar Images.
+            </summary>
+            <param name="icon16x16">
+            Das Overlayimage welches angezeigt werden soll.
+            <para>Zum entfernen des Overlays diesem Parameter den Wert 'null' (in VB 'Nothing') mitgeben.</para>
+            </param>
+            <param name="description">Die Beschreibung zum Overlay.</param>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.formBase.setOverlayIcon(System.Drawing.Icon)">
+            <summary>
+            Setzt unter Windows 7 ein Overlayicon in der rechten unteren Ecke des TaskBar Images.
+            </summary>
+            <param name="icon16x16">
+            Das Overlayimage welches angezeigt werden soll.
+            <para>Zum entfernen des Overlays diesem Parameter den Wert 'null' (in VB 'Nothing') mitgeben.</para>
+            </param>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.formBase.removeOverlayIcon">
+            <summary>
+            Entfernt das OverlayIcon aus dem TaskBarImage.
+            </summary>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.formBase.removeOverlayIcon(System.Windows.Forms.IWin32Window)">
+            <summary>
+            Entfernt das OverlayIcon aus dem TaskBarImage.
+            </summary>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.formBase.setButtonShield(System.Windows.Forms.Button)">
+            <summary>
+            Setzt das Shieldicon für Administrative Aufgaben als Image auf einem Button.
+            </summary>
+            <param name="button">Der Button auf diesem das Shieldicon gesetzt werden soll.</param>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.formBase.restartElevated">
+            <summary>
+            Startet die Anwendung neu und erzwingt beim Start die Bestätigung eines Administrators.
+            </summary>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.formBase.restartElevated(System.String[])">
+            <summary>
+            Startet die Anwendung neu und erzwingt beim Start die Bestätigung eines Administrators.
+            </summary>
+            <param name="arguments">Argumente die an die neue Instanz der Anwendung übergeben werden sollen.</param>
+            <exception cref="T:System.ComponentModel.Win32Exception">Tritt ein, wenn der Benutzer den UAC-Dialog mit 'Abbrechen' beendet.</exception>
+            <exception cref="T:System.InvalidOperationException">
+            Tritt ein, wenn der Benutzer bereits Administrator ist.
+            <para>Es sollte vorher mit <see cref="P:dotNetBase.Windows.Forms.formBase.isUserAdministrator"/> auf diesen Umstand geprüft werden.</para>
+            </exception>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.formBase.isVistaOrGreater">
+            <summary>
+            Gibt zurück, ob das ausführende Betriebssysteme Windows Vista oder höher ist.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.formBase.isSevenOrGreater">
+            <summary>
+            Gibt zurück ob das ausführende Betriebssystem Windows 7 oder höher ist.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.formBase.isGlassEnabled">
+            <summary>
+            Gibt zurück ob das ausführende Betriebssystem den Dektop Window Manager (DWM) und somit Aero Glass aktiviert hat.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.formBase.isUserAdministrator">
+            <summary>
+            Gibt zurück ob der Benutzer Administrator ist.
+            </summary>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.Aero.Wizard.#ctor">
+            <summary>
+            Initialisiert eine neue Instant von <see cref="T:dotNetBase.Windows.Forms.Aero.Wizard"/>.
+            </summary>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.Aero.Wizard.loadPage(System.String,System.Collections.Generic.Dictionary{System.Object,System.Object})">
+            <summary>
+            Lädt eine spezifische Seite in den Wizard.
+            </summary>
+            <param name="Key">Der Schlüssel der Seite die geladen werden soll.</param>
+            <param name="Data">Benutzerdefinierte Daten welche an wizardPage.setData übergeben werden soll.</param>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.Aero.Wizard.loadPage(System.String)">
+            <summary>
+            Lädt eine spezifische Seite in den Wizard.
+            </summary>
+            <param name="Key">Der Schlüssel der Seite die geladen werden soll.</param>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.Aero.Wizard.navigateForward">
+            <summary>
+            Navigiert einen Schritt weiter.
+            </summary>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.Aero.Wizard.navigateForward(System.Collections.Generic.Dictionary{System.Object,System.Object})">
+            <summary>
+            Navigiert einen Schritt weiter.
+            </summary>
+            <param name="data">Benutzerdefinierte Daten welche an wizardPage.setData übergeben werden soll.</param>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.Aero.Wizard.navigateForeward">
+            <summary>
+            Navigiert einen Schritt weiter.
+            </summary>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.Aero.Wizard.navigateForeward(System.Collections.Generic.Dictionary{System.Object,System.Object})">
+            <summary>
+            Navigiert einen Schritt weiter.
+            </summary>
+            <param name="Data">Benutzerdefinierte Daten welche an wizardPage.setData übergeben werden soll.</param>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.Aero.Wizard.navigateBackward">
+            <summary>
+            Navigiert einen Schritt zurück.
+            </summary>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.Aero.Wizard.navigateBackwards(System.Collections.Generic.Dictionary{System.Object,System.Object})">
+            <summary>
+            Navigiert einen Schritt zurück,
+            </summary>
+            <param name="Data">Benutzerdefinierte Daten welche an wizardPage.setData übergeben werden soll.</param>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.Aero.Wizard.showBorderMessage(System.Drawing.Icon,System.String)">
+            <summary>
+            Zeigt am unteren Rand des Assistenten einen Hinweistext an.
+            </summary>
+            <param name="messageIcon">Das Icon welches links neben dem Text angezeigt werden soll.</param>
+            <param name="Message">Der Text welcher angezeigt werden soll.</param>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.Aero.Wizard.showBorderMessage(System.Drawing.Icon,System.String,System.Int32)">
+            <summary>
+            Zeigt am unteren Rand des Assistenten einen Hinweistext an.
+            </summary>
+            <param name="messageIcon">Das Icon welches links neben dem Text angezeigt werden soll.</param>
+            <param name="Message">Der Text welcher angezeigt werden soll.</param>
+            <param name="displayTime">Die Zeit in Sekunden die der Hinweistext angezeigt werden soll.</param>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.Aero.Wizard.hideBorderMessage">
+            <summary>
+            Entfernt den Hinweistext vom unteren Rand des Assistenten.
+            </summary>
+        </member>
+        <member name="F:dotNetBase.Windows.Forms.Aero.Wizard.backButtonClickCallback">
+            <summary>
+            Funktion welche ausgeführt werden soll, wenn der Zurückbutton geklickt wurde.
+            <para>Hat dieses Delegate den Wert null (Nothing) wird per Default <see cref="M:dotNetBase.Windows.Forms.Aero.Wizard.navigateBackward"/> ausgeführt.</para>
+            </summary>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.Aero.Wizard.WndProc(System.Windows.Forms.Message@)">
+            <summary></summary>
+            <param name="m"></param>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.Aero.Wizard.OnPaint(System.Windows.Forms.PaintEventArgs)">
+            <summary></summary>
+            <param name="e"></param>
+        </member>
+        <member name="E:dotNetBase.Windows.Forms.Aero.Wizard.backButtonClicked">
+            <summary>
+            Event welches aufgerufen wird, wenn der Zurückbutton geklickt wurde.
+            </summary>
+        </member>
+        <member name="E:dotNetBase.Windows.Forms.Aero.Wizard.wizardPageChanged">
+            <summary>
+            Event wekches aufgerufen wird, wenn die Seite im Wizard verändert (geladen) wurde.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.Aero.Wizard.Pages">
+            <summary>
+            Gibt eine Auflistung von den vorhanden wizardPages zurück oder legt diese fest.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.Aero.Wizard.currentPage">
+            <summary>
+            Gibt die aktuell gelandene wizardPage zurück.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.Aero.Wizard.currentWizardPageItem">
+            <summary>
+            Gibt das aktuell Pageitem mit dem Key, der aktuellen Seite sowie den Keys der evtl. vorhandenen Foreward und Backwardpages zurück.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.Aero.Wizard.isBorderMessageShown">
+            <summary>
+            Gibt True zurück wenn momentan die Nachricht am unteren Rand angezeigt wird, andernfalls False.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.Aero.Wizard.bottomMessageFont">
+            <summary>
+            Gibt die Schriftart zurück die für die Bottommessage verwendet werden soll oder legt diese fest.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.Aero.Wizard.viewHost">
+            <summary>
+            Gibt den Viewhost für den Wizard zurück oder legt diesen fest.
+            </summary>
+        </member>
+        <member name="T:dotNetBase.Windows.Forms.Aero.Wizard.backButtonClick">
+            <summary>
+            Funktion welche ausgeführt werden soll, wenn der Zurückbutton geklickt wurde.
+            <para>Hat dieses Delegate den Wert null (Nothing) wird per Default <see cref="M:dotNetBase.Windows.Forms.Aero.Wizard.navigateBackward"/> ausgeführt.</para>
+            </summary>
+        </member>
+        <member name="T:dotNetBase.Windows.Forms.colorDialog">
+            <summary>
+            Eine erweiterter Colorpicker.
+            </summary>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.colorDialog.#ctor">
+            <summary>
+            Initialisiert eine neue Instanz von <see cref="T:dotNetBase.Windows.Forms.colorDialog"/>.
+            </summary>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.colorDialog.ShowDialog">
+            <summary>
+            Zeigt den Dialog zur auswahl einer Farbe an.
+            </summary>
+            <returns>Gibt das durch den Benutzer ausgewählte DialogResult zurück.</returns>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.colorDialog.ShowDialog(System.Windows.Forms.IWin32Window)">
+            <summary>
+            Zeigt den Dialog zur auswahl einer Farbe an.
+            </summary>
+            <param name="owner">Ein beliebiges Objekt, das IWin32Window implementiert, das das Fenster der obersten Ebene und damit den Besitzer des modalen Dialogfelds darstellt.</param>
+            <returns>Gibt das durch den Benutzer ausgewählte DialogResult zurück.</returns>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.colorDialog.Dispose">
+            <summary>
+            Gibt die verwendeten Resourcen der Instanz dieser Klasse wieder frei.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.colorDialog.Title">
+            <summary>
+            Gibt den Titel für den Dialog zurück oder legt diesen fest.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.colorDialog.allowTransparency">
+            <summary>
+            Gibt an ob auch die Transparenz (der Alpha-Wert) der Farbe verändert werden darf oder legt dieses fest.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.colorDialog.Strings">
+            <summary>
+            Gibt die lokalisierbaren Strings für den Colordialog zurück oder legt diese fest.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.colorDialog.selectedColor">
+            <summary>
+            Gibt die ausgewählte Farbe zurück oder legt diese fest.
+            </summary>
+        </member>
+        <member name="T:dotNetBase.Windows.Forms.colorDialog.localizableStrings">
+            <summary>
+            Klasse mit lokalisierbaren Strings des Colordialogs.
+            </summary>
+        </member>
+        <member name="T:dotNetBase.Windows.Forms.messageBoxEx">
+            <summary>
+            Überarbeitete Messagebox welche unter Vista und 7 den TaskDialog anstelle der alten MessageBox anzeigt.
+            </summary>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.messageBoxEx.Show(System.Windows.Forms.IWin32Window,System.String,System.String,System.String,System.Windows.Forms.MessageBoxButtons,System.Windows.Forms.MessageBoxIcon)">
+            <summary>
+            Zeigt ein Nachrichtenfenster an.
+            </summary>
+            <param name="Owner">Das Fenster welches als Parent genutzt werden soll.</param>
+            <param name="Title">Der Titel des Nachrichtenfensters.</param>
+            <param name="mainInstruction">Die Hauptanweisung welche als Überschrift in der Nachricht angezeigt werden soll.</param>
+            <param name="Content">Der Inhalt der Nachricht.</param>
+            <param name="Buttons">Die Buttons die im Nachrichtenfenster angezeigt werden soll.</param>
+            <param name="Icon">Das Icon welches im Nachrichtenfenster angezeigt werden soll.</param>
+            <returns>Gibt das DialogResult zurück welches vom Benutzer auf dem Nachrichtenfenster ausgewählt wurde.</returns>
+        </member>
+        <member name="T:dotNetBase.Windows.Forms.treeViewEx">
+            <summary>
+            Erweitertes TreeView welches unter Vista und 7 den Explorerstyle für das Highlight der Items implementiert.
+            </summary>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.treeViewEx.#ctor">
+            <summary>
+            Initialisiert eine neue Instanz von treeViewEx.
+            </summary>
+        </member>
+        <member name="T:dotNetBase.Windows.Forms.switchButtonStateChangedEventArgs">
+            <summary>
+            EventArgs für das <see cref="E:dotNetBase.Windows.Forms.switchButton.switchButtonStateChanged"/>-Event.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.switchButtonStateChangedEventArgs.State">
+            <summary>
+            Gibt den neuen Zustand des switchButtons zurück.
+            </summary>
+        </member>
+        <member name="T:dotNetBase.Windows.Forms.Aero.glassForm">
+            <summary>
+            Eine von formBase abgeleitete Form welche die Funktionalität bereitstellt den Glasrahmen zu erweitern.
+            </summary>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.Aero.glassForm.#ctor">
+            <summary>
+            Initialisiert eine neue Instanz von <see cref="T:dotNetBase.Windows.Forms.Aero.glassForm"/>.
+            </summary>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.Aero.glassForm.OnLoad(System.EventArgs)">
+            <summary></summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.Aero.glassForm.OnPaint(System.Windows.Forms.PaintEventArgs)">
+            <summary></summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.Aero.glassForm.WndProc(System.Windows.Forms.Message@)">
+            <summary></summary>
+            <param name="m"></param>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.Aero.glassForm.glassAllowDrag">
+            <summary>
+            Gibt zurück oder legt fest, ob die Form auch im erweiterten Glasbereich verschoben werden kann.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.Aero.glassForm.drawFullGlassWindow">
+            <summary>
+            Gibt zurück oder legt fest, ob das gesamte Fenster für den Glasbereich erweitert werden soll.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.Aero.glassForm.glassMargin">
+            <summary>
+            Legt die Bereiche fest über die der Glasbereich erweitert werden soll.
+            </summary>
+        </member>
+        <member name="T:dotNetBase.Windows.Forms.switchButtonStates">
+            <summary>
+            Enumeration mit den verfügbaren Zustäden des switchButtons.
+            </summary>
+        </member>
+        <member name="F:dotNetBase.Windows.Forms.switchButtonStates.Collapsed">
+            <summary>
+            Zugeklappter Zustand.
+            </summary>
+        </member>
+        <member name="F:dotNetBase.Windows.Forms.switchButtonStates.Expanded">
+            <summary>
+            Aufgeklappter Zustand.
+            </summary>
+        </member>
+        <member name="T:dotNetBase.Windows.Forms.switchButton">
+            <summary>
+            Ein switchButton welcher bei Bedarf automatisch die Größe der Form je nach Zustand ändern kann.
+            </summary>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.switchButton.#ctor">
+            <summary>
+            Initialisiert eine neue Instanz von <see cref="T:dotNetBase.Windows.Forms.switchButton"/>.
+            </summary>
+        </member>
+        <member name="E:dotNetBase.Windows.Forms.switchButton.switchButtonStateChanged">
+            <summary>
+            Event welches ausgelöst wird, wenn der Zustand verändert wird.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.switchButton.switchButtonState">
+            <summary>
+            Gibt den Zustand des switchButtons zurück oder legt diesen fest.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.switchButton.Text">
+            <summary>
+            Gibt den Text des switchButtons zurück oder legt diesen fest.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.switchButton.ownerForm">
+            <summary>
+            Gibt die Form zurück von welcher die Größe je nach Zustand verändert werden soll, oder legt diese fest.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.switchButton.expandedSize">
+            <summary>
+            Gibt die Größe der <see cref="P:dotNetBase.Windows.Forms.switchButton.ownerForm"/> zurück wenn der switchButton den Zustand <see cref="F:dotNetBase.Windows.Forms.switchButtonStates.Expanded"/> besitzt oder legt diese fest.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.switchButton.collapsedSize">
+            <summary>
+            Gibt die Größe der <see cref="P:dotNetBase.Windows.Forms.switchButton.ownerForm"/> zurück wenn der switchButton den Zustand <see cref="F:dotNetBase.Windows.Forms.switchButtonStates.Collapsed"/> besitzt, oder legt diese fest.
+            </summary>
+        </member>
+        <member name="T:dotNetBase.Windows.Forms.sevenToolStripRenderer">
+            <summary>
+            Ein ToolStrip Renderer welcher an das Menudesign von Windows 7 angelehnt ist.
+            </summary>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.sevenToolStripRenderer.#ctor">
+            <summary>
+            Initialisiert eine neue Instanz von <see cref="T:dotNetBase.Windows.Forms.sevenToolStripRenderer"/>.
+            </summary>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.sevenToolStripRenderer.OnRenderImageMargin(System.Windows.Forms.ToolStripRenderEventArgs)">
+            <summary></summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.sevenToolStripRenderer.OnRenderMenuItemBackground(System.Windows.Forms.ToolStripItemRenderEventArgs)">
+            <summary></summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.sevenToolStripRenderer.OnRenderSeparator(System.Windows.Forms.ToolStripSeparatorRenderEventArgs)">
+            <summary></summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.sevenToolStripRenderer.OnRenderButtonBackground(System.Windows.Forms.ToolStripItemRenderEventArgs)">
+            <summary></summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.sevenToolStripRenderer.OnRenderSplitButtonBackground(System.Windows.Forms.ToolStripItemRenderEventArgs)">
+            <summary></summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.sevenToolStripRenderer.OnRenderItemCheck(System.Windows.Forms.ToolStripItemImageRenderEventArgs)">
+            <summary></summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.sevenToolStripRenderer.OnRenderToolStripBackground(System.Windows.Forms.ToolStripRenderEventArgs)">
+            <summary></summary>
+            <param name="e"></param>
+        </member>
+        <member name="T:dotNetBase.Windows.Forms.commandButtonIcons">
+            <summary>
+            Enumeration mit den verfügbaren Icons welche auf dem <see cref="T:dotNetBase.Windows.Forms.commandButton"/> angezeigt werden können.
+            </summary>
+        </member>
+        <member name="F:dotNetBase.Windows.Forms.commandButtonIcons.Arrow">
+            <summary>Ein grüner Pfeil.</summary>
+        </member>
+        <member name="F:dotNetBase.Windows.Forms.commandButtonIcons.Shield">
+            <summary>Ein Shieldicon welches für Administrative Aufgaben verwendet wird.</summary>
+        </member>
+        <member name="T:dotNetBase.Windows.Forms.commandButton">
+            <summary>
+            Ein erweiterter Button.
+            </summary>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.commandButton.#ctor">
+            <summary>
+            Initialisiert eine neue Instanz von <see cref="T:dotNetBase.Windows.Forms.commandButton"/>.
+            </summary>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.commandButton.OnPaint(System.Windows.Forms.PaintEventArgs)">
+            <summary></summary>
+            <param name="pevent"></param>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.commandButton.CreateParams">
+            <summary></summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.commandButton.commandButtonIcon">
+            <summary>
+            Gibt das Icon welches im commandButton verwendet werden soll zurück oder legt dieses fest.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.commandButton.Description">
+            <summary>
+            Gibt den Beschreibungstext zurück oder legt diesen fest.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.commandButton.FlatStyle">
+            <summary>
+            Gibt den FlatStyle zurück oder legt diesen fest.
+            </summary>
+        </member>
+        <member name="T:dotNetBase.Windows.Forms.Aero.wizardPageChangedEventArgs">
+            <summary>
+            EventArgs für das <see cref="E:dotNetBase.Windows.Forms.Aero.Wizard.wizardPageChanged"/>-Event.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.Aero.wizardPageChangedEventArgs.newPage">
+            <summary>
+            Gibt die Wizardpage zurück welche neu geladen wurde.
+            </summary>
+        </member>
+        <member name="T:dotNetBase.Windows.Forms.Aero.wizardPage">
+            <summary>
+            Basiscontrol von welchem alle Seiten für den Wizard von abgeleitet werden müssen.
+            </summary>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.Aero.wizardPage.#ctor">
+            <summary>
+            Initialisiert eine neue Instanz von <see cref="T:dotNetBase.Windows.Forms.Aero.wizardPage"/>.
+            </summary>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.Aero.wizardPage.validatePage">
+            <summary>
+            Methode welche überschrieben werden kann um evtl. Eingaben in der Wizardseite zu Überprüfen.
+            <para>Diese Methode wird vor jedem <see cref="M:dotNetBase.Windows.Forms.Aero.Wizard.navigateForeward"/> für die aktuelle Seite aufgerufen und bricht bei einem Rückgabewert
+            von 'False' den Vorgang ab.</para>
+            </summary>
+            <returns>Gibt True zurück wenn die Validierung erfolgreich war, andernfalls False.</returns>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.Aero.wizardPage.setData(System.Collections.Generic.Dictionary{System.Object,System.Object})">
+            <summary>
+            Methode welche verwendet werden kann, um Elemente auf der wizardPage mit benutzerdefinierten Daten zu initialisieren.
+            </summary>
+            <param name="Data">
+            Ein Dictionary mit Daten welche vom <see cref="P:dotNetBase.Windows.Forms.Aero.wizardPage.Host"/> übergeben werden.
+            <para>Dieser Wert kann null sein.</para>
+            </param>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.Aero.wizardPage.getData">
+            <summary>
+            Diese Methode kann verwendet werden um Benutzerdefinierte Daten von der wizardPage an den <see cref="T:dotNetBase.Windows.Forms.Aero.Wizard">Host</see> zu übergeben.
+            </summary>
+            <returns>Gibt ein Dictionary mit benutzerdefinierten Daten zurück.</returns>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.Aero.wizardPage.onLoadPage(dotNetBase.Windows.Forms.Aero.loadPageEventArgs)">
+            <summary>
+            Ruft das <see cref="E:dotNetBase.Windows.Forms.Aero.wizardPage.loadPage"/>-Event auf.
+            </summary>
+            <param name="e">EventArgs welche den Schlüssel der neuen Wizardpage besitzen.</param>
+        </member>
+        <member name="E:dotNetBase.Windows.Forms.Aero.wizardPage.loadPage">
+            <summary>
+            Event welches aufgerufen wird, wenn eine neue Seite im Wizard geladen werden soll.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.Aero.wizardPage.pageTitle">
+            <summary>
+            Gibt den Titel zurück der im Assistenten angezeigt werden soll oder legt diesen fest.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.Aero.wizardPage.Host">
+            <summary>
+            Bietet Zugriff auf die von <see cref="T:dotNetBase.Windows.Forms.Aero.Wizard"/> abgeleitete Hostform.
+            </summary>
+        </member>
+        <member name="F:dotNetBase.Windows.Forms.Internal.internalColorDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.Internal.internalColorDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.Internal.internalColorDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:dotNetBase.Windows.Forms.Aero.waitingCircle">
+            <summary>
+            Ein Control welches den Wartezirkel von Windows Vista und Windows 7 darstellt.
+            </summary>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.Aero.waitingCircle.#ctor">
+            <summary>
+            Initialisiert eine neue Instant von <see cref="T:dotNetBase.Windows.Forms.Aero.waitingCircle"/>
+            </summary>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.Aero.waitingCircle.Start">
+            <summary>
+            Startet die Animation.
+            </summary>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.Aero.waitingCircle.Stop">
+            <summary>
+            Stoppt die Animation.
+            </summary>
+        </member>
+        <member name="T:dotNetBase.Windows.Forms.Aero.loadPageEventArgs">
+            <summary>
+            EventArgs für das loadPage-Event von <see cref="T:dotNetBase.Windows.Forms.Aero.wizardPage"/>.
+            </summary>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.Aero.loadPageEventArgs.#ctor(System.String)">
+            <summary>
+            Initialisiert eine neue Instanz von <see cref="T:dotNetBase.Windows.Forms.Aero.loadPageEventArgs"/>.
+            </summary>
+            <param name="sPageKey">Der Name der Seite im Assistenten welche geladen werden soll.</param>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.Aero.loadPageEventArgs.pageKey">
+            <summary>
+            Gibt den Namen der Seite zurück welche im Wizard geladen werden soll.
+            </summary>
+        </member>
+        <member name="T:dotNetBase.Windows.Forms.Internal.progressPanel">
+            <summary>
+            Internes Control zum darstellen des Status
+            </summary>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.Internal.progressPanel.#ctor">
+            <summary>
+            Initialisiert eine neue Instanz von <see cref="T:dotNetBase.Windows.Forms.Internal.progressPanel"/>.
+            </summary>
+        </member>
+        <member name="T:dotNetBase.Windows.Forms.Aero.wizardPageCollectionItem">
+            <summary>
+            Item welches Informationen über eine Seite im Assistenten beinhaltet.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.Aero.wizardPageCollectionItem.Page">
+            <summary>
+            Gibt das von <see cref="T:dotNetBase.Windows.Forms.Aero.wizardPage"/> abgeleite Objekt zurück.
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.Aero.wizardPageCollectionItem.backwardPageKey">
+            <summary>
+            Gibt den Schlüssel der Seite zurück die geladen werden soll, wenn die Methode <see cref="M:dotNetBase.Windows.Forms.Aero.Wizard.navigateBackward"/> im Assistenten aufgerufen wird.
+            <para>Dieser Wert kann null sein.</para>
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.Aero.wizardPageCollectionItem.forewardPageKey">
+            <summary>
+            Gibt den Schlüssel der Seite zurück die geladen werden soll, wenn die Methode <see cref="M:dotNetBase.Windows.Forms.Aero.Wizard.navigateForeward"/> im Assistenten aufgerufen wird.
+            <para>Dieser Wert kann null sein.</para>
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.Aero.wizardPageCollectionItem.forwardPageKey">
+            <summary>
+            Gibt den Schlüssel der Seite zurück die geladen werden soll, wenn die Methode <see cref="M:dotNetBase.Windows.Forms.Aero.Wizard.navigateForward"/> im Assistenten aufgerufen wird.
+            <para>Dieser Wert kann null sein.</para>
+            </summary>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.Aero.wizardPageCollectionItem.Key">
+            <summary>
+            Gibt den Schlüssel dieser Wizardseite zurück.
+            </summary>
+        </member>
+        <member name="T:dotNetBase.Windows.Forms.thumbnailProgressState">
+            <summary>
+            Represents the thumbnail progress bar state.
+            </summary>
+        </member>
+        <member name="F:dotNetBase.Windows.Forms.thumbnailProgressState.NoProgress">
+            <summary>
+            No progress is displayed.
+            </summary>
+        </member>
+        <member name="F:dotNetBase.Windows.Forms.thumbnailProgressState.Indeterminate">
+            <summary>
+            The progress is indeterminate (marquee).
+            </summary>
+        </member>
+        <member name="F:dotNetBase.Windows.Forms.thumbnailProgressState.Normal">
+            <summary>
+            Normal progress is displayed.
+            </summary>
+        </member>
+        <member name="F:dotNetBase.Windows.Forms.thumbnailProgressState.Error">
+            <summary>
+            An error occurred (red).
+            </summary>
+        </member>
+        <member name="F:dotNetBase.Windows.Forms.thumbnailProgressState.Paused">
+            <summary>
+            The operation is paused (yellow).
+            </summary>
+        </member>
+        <member name="T:dotNetBase.Windows.Forms.listViewEx">
+            <summary>
+            Erweiterte ListView welche unter Vista und 7 den Explorerstyle für das Highligt der Items implementiert.
+            </summary>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.listViewEx.#ctor">
+            <summary>
+            Initialisiert eine neue Instanz der <see cref="T:System.Windows.Forms.ListView"/>.
+            </summary>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.listViewEx.WndProc(System.Windows.Forms.Message@)">
+            <summary>
+            Explorerstyle setzen
+            </summary>
+            <param name="m"></param>
+        </member>
+        <member name="T:dotNetBase.Windows.Forms.Aero.wizardPageCollection">
+            <summary>
+            Klasse zum Verwalten der Wizardseiten.
+            </summary>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.Aero.wizardPageCollection.Add(dotNetBase.Windows.Forms.Aero.wizardPage,System.String,System.String,System.String)">
+            <summary>
+            Fügt eine neue Seite dem Assistenten hinzu.
+            </summary>
+            <param name="Page">Die von <see cref="T:dotNetBase.Windows.Forms.Aero.wizardPage"/> abgeleitete Seite.</param>
+            <param name="Key">Der Schlüssel über den die Seite Identifiziert werden soll.</param>
+            <param name="backwardPageKey">
+            Der Schlüssel der Seite die beim Aufruf von <see cref="M:dotNetBase.Windows.Forms.Aero.Wizard.navigateBackward"/> geladen werden soll.
+            <para>Dieser Wert kann null sein.</para>
+            </param>
+            <param name="forewardPageKey">
+            Der Schlüssel der Seite die beim Aufruf von <see cref="M:dotNetBase.Windows.Forms.Aero.Wizard.navigateForeward"/> geladen werden soll.
+            <para>Dieser Wert kann null sein.</para>
+            </param>
+        </member>
+        <member name="M:dotNetBase.Windows.Forms.Aero.wizardPageCollection.Remove(System.String)">
+            <summary>
+            Entfernt eine Seite aus der Auflistung.
+            </summary>
+            <param name="Key">Der Schlüssel der Seite die entfernt werden soll.</param>
+        </member>
+        <member name="P:dotNetBase.Windows.Forms.Aero.wizardPageCollection.Item(System.String)">
+            <summary>
+            Klasse zum Verwalten der Wizardseiten.
+            </summary>
+            <param name="key">Der Schlüssel der Seite auf die zugegriffen werden soll.</param>
+            <returns>Gibt die <see cref="T:dotNetBase.Windows.Forms.Aero.wizardPage"/> passend zum angegebenen Schlüssel zurück.</returns>
+        </member>
+    </members>
+</doc>
