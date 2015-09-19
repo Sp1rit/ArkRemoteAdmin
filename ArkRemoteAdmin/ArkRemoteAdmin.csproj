@@ -51,8 +51,9 @@
     <ApplicationIcon>icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BssFramework">
-      <HintPath>..\..\BssFramework\Release\BssFramework.dll</HintPath>
+    <Reference Include="BssFramework, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\BssFramework.dll</HintPath>
     </Reference>
     <Reference Include="Common.Logging, Version=3.0.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
       <HintPath>..\packages\Common.Logging.3.0.0\lib\net40\Common.Logging.dll</HintPath>
@@ -66,8 +67,9 @@
       <HintPath>..\packages\PriorityQueue.0.1.0\lib\net45\ConcurrentPriorityQueue.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="dotNetBase.Windows.Forms">
-      <HintPath>..\..\..\Libs\dotNetBase.Windows.Forms\dotNetBase.Windows.Forms.dll</HintPath>
+    <Reference Include="dotNetBase.Windows.Forms, Version=0.1.9.0, Culture=neutral, PublicKeyToken=9d5bc8eace28700d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libs\dotNetBase.Windows.Forms.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="Newtonsoft.Json">
