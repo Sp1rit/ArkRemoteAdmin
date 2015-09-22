@@ -6,6 +6,7 @@ using ArkRemoteAdmin.UserInterface;
 using BssFramework.Windows.Forms;
 using Microsoft.VisualBasic.ApplicationServices;
 using Quartz;
+using Rcon;
 
 namespace ArkRemoteAdmin
 {
@@ -33,7 +34,7 @@ namespace ArkRemoteAdmin
             scheduler.Shutdown();
         }
 
-        private void Test(object sender, SourceRcon.HighLevel.CommandExecutedEventArgs e)
+        private void Test(object sender, CommandExecutedEventArgs e)
         {
             System.Console.WriteLine($"Command executed: {e.Successful} {e.Error} {e.Command}");
         }

@@ -9,9 +9,10 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ArkRemoteAdmin.SourceRcon.HighLevel.Commands;
 using BssFramework.Windows.Forms;
-using ArkRcon = ArkRemoteAdmin.SourceRcon.HighLevel.ArkRcon;
+using Rcon;
+using Rcon.Commands;
+using ArkRcon = ArkRemoteAdmin.Core.ArkRcon;
 
 namespace ArkRemoteAdmin.UserInterface
 {
@@ -103,7 +104,8 @@ namespace ArkRemoteAdmin.UserInterface
             if (players.Length > 0)
             {
                 string text = string.Join(Environment.NewLine, players.Select(p => p.Name));
-                Clipboard.SetText(text ?? "");
+                if (!string.IsNullOrEmpty(text))
+                    Clipboard.SetText(text);
             }
         }
 
@@ -113,7 +115,8 @@ namespace ArkRemoteAdmin.UserInterface
             if (players.Length > 0)
             {
                 string text = string.Join(Environment.NewLine, players.Select(p => p.SteamId));
-                Clipboard.SetText(text ?? "");
+                if (!string.IsNullOrEmpty(text))
+                    Clipboard.SetText(text);
             }
         }
 
@@ -125,7 +128,7 @@ namespace ArkRemoteAdmin.UserInterface
                 player.Kick(PlayerKicked);
         }
 
-        private void PlayerKicked(object sender, SourceRcon.HighLevel.CommandExecutedEventArgs e)
+        private void PlayerKicked(object sender, CommandExecutedEventArgs e)
         {
             if (e.Successful)
             {
@@ -144,7 +147,7 @@ namespace ArkRemoteAdmin.UserInterface
                 player.Ban(PlayerBanned);
         }
 
-        private void PlayerBanned(object sender, SourceRcon.HighLevel.CommandExecutedEventArgs e)
+        private void PlayerBanned(object sender, CommandExecutedEventArgs e)
         {
             if (e.Successful)
             {
@@ -163,7 +166,7 @@ namespace ArkRemoteAdmin.UserInterface
                 player.Unban(PlayerUnbanned);
         }
 
-        private void PlayerUnbanned(object sender, SourceRcon.HighLevel.CommandExecutedEventArgs e)
+        private void PlayerUnbanned(object sender, CommandExecutedEventArgs e)
         {
             if (e.Successful)
             {
@@ -182,7 +185,7 @@ namespace ArkRemoteAdmin.UserInterface
                 player.AddToWhitelist(PlayerAddedToWhitelist);
         }
 
-        private void PlayerAddedToWhitelist(object sender, SourceRcon.HighLevel.CommandExecutedEventArgs e)
+        private void PlayerAddedToWhitelist(object sender, CommandExecutedEventArgs e)
         {
             if (e.Successful)
             {
@@ -201,7 +204,7 @@ namespace ArkRemoteAdmin.UserInterface
                 player.RemoveFromWhitelist(PlayerRemovedFromWhitelist);
         }
 
-        private void PlayerRemovedFromWhitelist(object sender, SourceRcon.HighLevel.CommandExecutedEventArgs e)
+        private void PlayerRemovedFromWhitelist(object sender, CommandExecutedEventArgs e)
         {
             if (e.Successful)
             {
@@ -228,11 +231,11 @@ namespace ArkRemoteAdmin.UserInterface
             ArkRcon.Client.ExecuteCommandAsync(new ListPlayers(), PlayersListed);
         }
 
-        private void PlayersListed(object sender, SourceRcon.HighLevel.CommandExecutedEventArgs e)
+        private void PlayersListed(object sender, CommandExecutedEventArgs e)
         {
             if (e.Successful)
             {
-                List<Player> players = ListPlayers.ParsePlayers(e.Response);
+                List<Player> players = Player.ParsePlayers(e.Response);
 
                 syncContext.Send(state =>
                 {

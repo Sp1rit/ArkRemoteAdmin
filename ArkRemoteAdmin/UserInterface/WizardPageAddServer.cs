@@ -71,25 +71,28 @@ namespace ArkRemoteAdmin.UserInterface
             Host.showBorderMessage(Properties.Resources.hourglass, "Testing connection. Please wait ...");
             Host.setTaskBarProgressState(dotNetBase.Windows.Forms.thumbnailProgressState.Indeterminate);
 
+            Rcon.RconBase client = new Rcon.RconBase();
             try
             {
-                //Rcon.RconBase client = new Rcon.RconBase();
+                if (!client.Connect(tbxHost.Text, (int)nudRconPort.Value))
+                    throw new Exception("Connection to server failed. Check your host and port.");
 
-                SourceRcon.RconClient client = new SourceRcon.RconClient();
-                string message;
-                if (!client.Connect(tbxHost.Text, (int)nudRconPort.Value, tbxPassword.Text, out message))
-                {
-                    Host.showBorderMessage(Properties.Resources.exclamation, message);
-                    Host.setTaskBarProgressState(dotNetBase.Windows.Forms.thumbnailProgressState.NoProgress);
+                if (!client.Authenticate(tbxPassword.Text))
+                    throw new Exception("Authentication with server failed. The password is incorrect.");
+
+                if (!client.Connected)
                     return false;
-                }
-                client.Disconnect();
             }
             catch (Exception ex)
             {
-                Host.showBorderMessage(Properties.Resources.exclamation, "Connection test failed.");
+                Host.showBorderMessage(Properties.Resources.exclamation, ex.Message);
                 Host.setTaskBarProgressState(dotNetBase.Windows.Forms.thumbnailProgressState.NoProgress);
                 return false;
+            }
+            finally
+            {
+                if (client.Connected)
+                    client.Disconnect();
             }
 
             Host.hideBorderMessage();

@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ArkRcon = ArkRemoteAdmin.SourceRcon.HighLevel.ArkRcon;
+using ArkRcon = ArkRemoteAdmin.Core.ArkRcon;
 
 namespace ArkRemoteAdmin
 {
@@ -29,7 +29,33 @@ namespace ArkRemoteAdmin
             if (!di.Exists)
                 di.Create();
 
-            Log(di.FullName, message.Replace("\n", Environment.NewLine));
+            Log(di.FullName, message.Replace(Environment.NewLine, "\n").Replace("\n", Environment.NewLine));
+        }
+
+        public static string GetChatLog()
+        {
+            try
+            {
+                FileInfo fi = new FileInfo(Path.Combine(ChatLogPath.FullName, ArkRcon.ConnectedServer.Id.ToString(), $"{DateTime.Now:yyyyMMdd}.log"));
+                if (fi.Exists)
+                    return File.ReadAllText(fi.FullName);
+            }
+            catch { }
+
+            return string.Empty;
+        }
+
+        public static string GetConsoleLog()
+        {
+            try
+            {
+                FileInfo fi = new FileInfo(Path.Combine(ConsoleLogPath.FullName, ArkRcon.ConnectedServer.Id.ToString(), $"{DateTime.Now:yyyyMMdd}.log"));
+                if (fi.Exists)
+                    return File.ReadAllText(fi.FullName);
+            }
+            catch { }
+
+            return string.Empty;
         }
 
         public static void Log(string message)

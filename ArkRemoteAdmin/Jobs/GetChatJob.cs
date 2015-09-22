@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Quartz;
-using ArkRcon = ArkRemoteAdmin.SourceRcon.HighLevel.ArkRcon;
+using ArkRcon = ArkRemoteAdmin.Core.ArkRcon;
 
 namespace ArkRemoteAdmin.Jobs
 {

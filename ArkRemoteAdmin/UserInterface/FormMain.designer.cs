@@ -39,17 +39,24 @@ namespace ArkRemoteAdmin
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.formStateSaver = new BssFramework.Windows.Forms.FormStateSaver();
+            this.progressOverlay = new dotNetBase.Windows.Forms.progressOverlay();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.button1 = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             this.toolStripContainer = new System.Windows.Forms.ToolStripContainer();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tslLog = new System.Windows.Forms.ToolStripStatusLabel();
             this.tslConnection = new System.Windows.Forms.ToolStripStatusLabel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpPlayers = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.tpServer = new System.Windows.Forms.TabPage();
+            this.tpSchedules = new System.Windows.Forms.TabPage();
+            this.tpChat = new System.Windows.Forms.TabPage();
+            this.tpConsole = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
@@ -63,19 +70,13 @@ namespace ArkRemoteAdmin
             this.tsbWebsite = new System.Windows.Forms.ToolStripButton();
             this.tsbDonate = new System.Windows.Forms.ToolStripButton();
             this.tsExitServer = new System.Windows.Forms.ToolStripButton();
-            this.progressOverlay = new dotNetBase.Windows.Forms.progressOverlay();
-            this.tslLog = new System.Windows.Forms.ToolStripStatusLabel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.listView1 = new System.Windows.Forms.ListView();
             this.players = new ArkRemoteAdmin.UserInterface.Players();
             this.server = new ArkRemoteAdmin.UserInterface.Modules.Server();
             this.schedulesList = new ArkRemoteAdmin.UserInterface.Modules.SchedulesList();
             this.chat = new ArkRemoteAdmin.UserInterface.Modules.Chat();
             this.console = new ArkRemoteAdmin.Console();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.cmsTray.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.toolStripContainer.BottomToolStripPanel.SuspendLayout();
             this.toolStripContainer.ContentPanel.SuspendLayout();
             this.toolStripContainer.TopToolStripPanel.SuspendLayout();
@@ -83,13 +84,12 @@ namespace ArkRemoteAdmin
             this.statusStrip.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tpPlayers.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.tabPage3.SuspendLayout();
-            this.tabPage4.SuspendLayout();
-            this.tabPage5.SuspendLayout();
+            this.tpServer.SuspendLayout();
+            this.tpSchedules.SuspendLayout();
+            this.tpChat.SuspendLayout();
+            this.tpConsole.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.toolStrip.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // notifyIcon
@@ -144,6 +144,77 @@ namespace ArkRemoteAdmin
             // 
             this.formStateSaver.FormToSave = this;
             // 
+            // progressOverlay
+            // 
+            this.progressOverlay.allowClose = true;
+            this.progressOverlay.backColor = System.Drawing.Color.White;
+            this.progressOverlay.cancelText = "Cancel";
+            this.progressOverlay.Description = "Establishing a connection to the server.\r\nPlease wait...";
+            this.progressOverlay.descriptionColor = System.Drawing.Color.Black;
+            this.progressOverlay.descriptionFont = new System.Drawing.Font("Tahoma", 8F);
+            this.progressOverlay.frameColor = System.Drawing.Color.DarkGray;
+            this.progressOverlay.Owner = this;
+            this.progressOverlay.Title = "Connecting";
+            this.progressOverlay.titleColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(51)))), ((int)(((byte)(151)))));
+            this.progressOverlay.titleFont = new System.Drawing.Font("Tahoma", 10F);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.listView1);
+            this.panel1.Controls.Add(this.button1);
+            this.panel1.Controls.Add(this.label2);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(645, 397);
+            this.panel1.TabIndex = 1;
+            this.panel1.Visible = false;
+            // 
+            // listView1
+            // 
+            this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.listView1.FullRowSelect = true;
+            this.listView1.Location = new System.Drawing.Point(12, 50);
+            this.listView1.MultiSelect = false;
+            this.listView1.Name = "listView1";
+            this.listView1.ShowGroups = false;
+            this.listView1.Size = new System.Drawing.Size(621, 335);
+            this.listView1.SmallImageList = this.imageList1;
+            this.listView1.TabIndex = 3;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.List;
+            // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "accept.png");
+            this.imageList1.Images.SetKeyName(1, "error.png");
+            this.imageList1.Images.SetKeyName(2, "exclamation.png");
+            // 
+            // button1
+            // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button1.Location = new System.Drawing.Point(558, 12);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "Close";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(12, 12);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(95, 19);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "Status Log";
+            // 
             // toolStripContainer
             // 
             // 
@@ -193,6 +264,15 @@ namespace ArkRemoteAdmin
             this.toolStripStatusLabel1.Text = "Status";
             this.toolStripStatusLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // tslLog
+            // 
+            this.tslLog.IsLink = true;
+            this.tslLog.Name = "tslLog";
+            this.tslLog.Size = new System.Drawing.Size(59, 17);
+            this.tslLog.Text = "Show Log";
+            this.tslLog.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.tslLog.Click += new System.EventHandler(this.tslLog_Click);
+            // 
             // tslConnection
             // 
             this.tslConnection.Image = global::ArkRemoteAdmin.Properties.Resources.disconnect;
@@ -203,10 +283,10 @@ namespace ArkRemoteAdmin
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tpPlayers);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage3);
-            this.tabControl1.Controls.Add(this.tabPage4);
-            this.tabControl1.Controls.Add(this.tabPage5);
+            this.tabControl1.Controls.Add(this.tpServer);
+            this.tabControl1.Controls.Add(this.tpSchedules);
+            this.tabControl1.Controls.Add(this.tpChat);
+            this.tabControl1.Controls.Add(this.tpConsole);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
@@ -214,6 +294,7 @@ namespace ArkRemoteAdmin
             this.tabControl1.Size = new System.Drawing.Size(645, 350);
             this.tabControl1.TabIndex = 4;
             this.tabControl1.Visible = false;
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tpPlayers
             // 
@@ -226,49 +307,49 @@ namespace ArkRemoteAdmin
             this.tpPlayers.Text = "Players";
             this.tpPlayers.UseVisualStyleBackColor = true;
             // 
-            // tabPage2
+            // tpServer
             // 
-            this.tabPage2.Controls.Add(this.server);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(637, 324);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Server";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tpServer.Controls.Add(this.server);
+            this.tpServer.Location = new System.Drawing.Point(4, 22);
+            this.tpServer.Name = "tpServer";
+            this.tpServer.Padding = new System.Windows.Forms.Padding(3);
+            this.tpServer.Size = new System.Drawing.Size(637, 324);
+            this.tpServer.TabIndex = 1;
+            this.tpServer.Text = "Server";
+            this.tpServer.UseVisualStyleBackColor = true;
             // 
-            // tabPage3
+            // tpSchedules
             // 
-            this.tabPage3.Controls.Add(this.schedulesList);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(637, 324);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Schedules";
-            this.tabPage3.UseVisualStyleBackColor = true;
+            this.tpSchedules.Controls.Add(this.schedulesList);
+            this.tpSchedules.Location = new System.Drawing.Point(4, 22);
+            this.tpSchedules.Name = "tpSchedules";
+            this.tpSchedules.Padding = new System.Windows.Forms.Padding(3);
+            this.tpSchedules.Size = new System.Drawing.Size(637, 324);
+            this.tpSchedules.TabIndex = 2;
+            this.tpSchedules.Text = "Schedules";
+            this.tpSchedules.UseVisualStyleBackColor = true;
             // 
-            // tabPage4
+            // tpChat
             // 
-            this.tabPage4.Controls.Add(this.chat);
-            this.tabPage4.Location = new System.Drawing.Point(4, 22);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(637, 324);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Chat";
-            this.tabPage4.UseVisualStyleBackColor = true;
+            this.tpChat.Controls.Add(this.chat);
+            this.tpChat.Location = new System.Drawing.Point(4, 22);
+            this.tpChat.Name = "tpChat";
+            this.tpChat.Padding = new System.Windows.Forms.Padding(3);
+            this.tpChat.Size = new System.Drawing.Size(637, 324);
+            this.tpChat.TabIndex = 3;
+            this.tpChat.Text = "Chat";
+            this.tpChat.UseVisualStyleBackColor = true;
             // 
-            // tabPage5
+            // tpConsole
             // 
-            this.tabPage5.Controls.Add(this.console);
-            this.tabPage5.Location = new System.Drawing.Point(4, 22);
-            this.tabPage5.Name = "tabPage5";
-            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage5.Size = new System.Drawing.Size(637, 324);
-            this.tabPage5.TabIndex = 4;
-            this.tabPage5.Text = "Console";
-            this.tabPage5.UseVisualStyleBackColor = true;
+            this.tpConsole.Controls.Add(this.console);
+            this.tpConsole.Location = new System.Drawing.Point(4, 22);
+            this.tpConsole.Name = "tpConsole";
+            this.tpConsole.Padding = new System.Windows.Forms.Padding(3);
+            this.tpConsole.Size = new System.Drawing.Size(637, 324);
+            this.tpConsole.TabIndex = 4;
+            this.tpConsole.Text = "Console";
+            this.tpConsole.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel1
             // 
@@ -420,78 +501,6 @@ namespace ArkRemoteAdmin
             this.tsExitServer.Visible = false;
             this.tsExitServer.Click += new System.EventHandler(this.tsExitServer_Click);
             // 
-            // progressOverlay
-            // 
-            this.progressOverlay.allowClose = true;
-            this.progressOverlay.backColor = System.Drawing.Color.White;
-            this.progressOverlay.cancelText = "Cancel";
-            this.progressOverlay.Description = "Establishing a connection to the server.\r\nPlease wait...";
-            this.progressOverlay.descriptionColor = System.Drawing.Color.Black;
-            this.progressOverlay.descriptionFont = new System.Drawing.Font("Tahoma", 8F);
-            this.progressOverlay.frameColor = System.Drawing.Color.DarkGray;
-            this.progressOverlay.Owner = this;
-            this.progressOverlay.Title = "Connecting";
-            this.progressOverlay.titleColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(51)))), ((int)(((byte)(151)))));
-            this.progressOverlay.titleFont = new System.Drawing.Font("Tahoma", 10F);
-            // 
-            // tslLog
-            // 
-            this.tslLog.IsLink = true;
-            this.tslLog.Name = "tslLog";
-            this.tslLog.Size = new System.Drawing.Size(59, 17);
-            this.tslLog.Text = "Show Log";
-            this.tslLog.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.tslLog.Click += new System.EventHandler(this.tslLog_Click);
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.listView1);
-            this.panel1.Controls.Add(this.button1);
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(645, 397);
-            this.panel1.TabIndex = 1;
-            this.panel1.Visible = false;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Tahoma", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(12, 12);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(95, 19);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Status Log";
-            // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(558, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Close";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // listView1
-            // 
-            this.listView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.listView1.FullRowSelect = true;
-            this.listView1.Location = new System.Drawing.Point(12, 50);
-            this.listView1.MultiSelect = false;
-            this.listView1.Name = "listView1";
-            this.listView1.ShowGroups = false;
-            this.listView1.Size = new System.Drawing.Size(621, 335);
-            this.listView1.SmallImageList = this.imageList1;
-            this.listView1.TabIndex = 3;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.List;
-            // 
             // players
             // 
             this.players.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -532,14 +541,6 @@ namespace ArkRemoteAdmin
             this.console.Size = new System.Drawing.Size(631, 318);
             this.console.TabIndex = 0;
             // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "accept.png");
-            this.imageList1.Images.SetKeyName(1, "error.png");
-            this.imageList1.Images.SetKeyName(2, "exclamation.png");
-            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -553,6 +554,8 @@ namespace ArkRemoteAdmin
             this.Load += new System.EventHandler(this.FormMain_Load);
             this.Resize += new System.EventHandler(this.FormMain_Resize);
             this.cmsTray.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.toolStripContainer.BottomToolStripPanel.ResumeLayout(false);
             this.toolStripContainer.BottomToolStripPanel.PerformLayout();
             this.toolStripContainer.ContentPanel.ResumeLayout(false);
@@ -564,16 +567,14 @@ namespace ArkRemoteAdmin
             this.statusStrip.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.tpPlayers.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage4.ResumeLayout(false);
-            this.tabPage5.ResumeLayout(false);
+            this.tpServer.ResumeLayout(false);
+            this.tpSchedules.ResumeLayout(false);
+            this.tpChat.ResumeLayout(false);
+            this.tpConsole.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.toolStrip.ResumeLayout(false);
             this.toolStrip.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -590,12 +591,12 @@ namespace ArkRemoteAdmin
         private System.Windows.Forms.ToolStripButton tsbDonate;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tpPlayers;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage tpServer;
+        private System.Windows.Forms.TabPage tpSchedules;
         private System.Windows.Forms.ToolStripButton tsExitServer;
         private SchedulesList schedulesList;
-        private System.Windows.Forms.TabPage tabPage4;
-        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.TabPage tpChat;
+        private System.Windows.Forms.TabPage tpConsole;
         private Chat chat;
         private Console console;
         private System.Windows.Forms.StatusStrip statusStrip;

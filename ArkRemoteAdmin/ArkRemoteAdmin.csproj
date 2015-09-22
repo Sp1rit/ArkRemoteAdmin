@@ -55,13 +55,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Libs\BssFramework.dll</HintPath>
     </Reference>
-    <Reference Include="Common.Logging, Version=3.0.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+    <Reference Include="Common.Logging, Version=3.2.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Common.Logging.3.0.0\lib\net40\Common.Logging.dll</HintPath>
-      <Private>True</Private>
     </Reference>
-    <Reference Include="Common.Logging.Core, Version=3.0.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+    <Reference Include="Common.Logging.Core, Version=3.2.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Common.Logging.Core.3.0.0\lib\net40\Common.Logging.Core.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="ConcurrentPriorityQueue, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\PriorityQueue.0.1.0\lib\net45\ConcurrentPriorityQueue.dll</HintPath>
@@ -72,19 +72,17 @@
       <HintPath>..\Libs\dotNetBase.Windows.Forms.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualBasic" />
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="Quartz, Version=2.3.3.0, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL">
       <HintPath>..\packages\Quartz.2.3.3\lib\net40\Quartz.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Rcon, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Rcon.1.0.0.0\lib\net45\Rcon.dll</HintPath>
+    <Reference Include="Rcon, Version=1.0.25.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rcon.1.0.25.0\lib\net45\Rcon.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SharpRaven">
-      <HintPath>..\packages\SharpRaven.1.4.5\lib\net45\SharpRaven.dll</HintPath>
+    <Reference Include="SharpRaven, Version=1.4.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpRaven.1.4.6\lib\net45\SharpRaven.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -103,52 +101,12 @@
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="Core\ErrorHandler.cs" />
-    <Compile Include="UI\Form1.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Jobs\CommandJob.cs" />
     <Compile Include="Jobs\GetChatJob.cs" />
     <Compile Include="Jobs\UpdatePlayersJob.cs" />
     <Compile Include="Core\Logging.cs" />
     <Compile Include="Properties\Annotations.cs" />
-    <Compile Include="SourceRcon\HighLevel\CommandExecutedEventArgs.cs" />
-    <Compile Include="SourceRcon\HighLevel\Commands\DisallowPlayerToJoinNoCheck.cs" />
-    <Compile Include="SourceRcon\HighLevel\Commands\BanPlayer.cs" />
-    <Compile Include="SourceRcon\HighLevel\Commands\Broadcast.cs" />
-    <Compile Include="SourceRcon\HighLevel\Commands\Command.cs" />
-    <Compile Include="SourceRcon\HighLevel\CommandFactory.cs" />
-    <Compile Include="SourceRcon\HighLevel\Commands\AllowPlayerToJoinNoCheck.cs" />
-    <Compile Include="SourceRcon\HighLevel\Commands\DestroyAllEnemies.cs" />
-    <Compile Include="SourceRcon\HighLevel\Commands\DisableSpectator.cs" />
-    <Compile Include="SourceRcon\HighLevel\Commands\DoExit.cs" />
-    <Compile Include="SourceRcon\HighLevel\Commands\EnableSpectator.cs" />
-    <Compile Include="SourceRcon\HighLevel\Commands\ForcePlayerToJoinTribe.cs" />
-    <Compile Include="SourceRcon\HighLevel\Commands\GetChat.cs" />
-    <Compile Include="SourceRcon\HighLevel\Commands\GiveExpToPlayer.cs" />
-    <Compile Include="SourceRcon\HighLevel\Commands\ICommand.cs" />
-    <Compile Include="SourceRcon\HighLevel\Commands\KickPlayer.cs" />
-    <Compile Include="SourceRcon\HighLevel\Commands\KillPlayer.cs" />
-    <Compile Include="SourceRcon\HighLevel\Commands\ListPlayers.cs" />
-    <Compile Include="SourceRcon\HighLevel\Commands\Raw.cs" />
-    <Compile Include="SourceRcon\HighLevel\Commands\SaveWorld.cs" />
-    <Compile Include="SourceRcon\HighLevel\Commands\ServerChat.cs" />
-    <Compile Include="SourceRcon\HighLevel\Commands\ServerChatTo.cs" />
-    <Compile Include="SourceRcon\HighLevel\Commands\ServerChatToPlayer.cs" />
-    <Compile Include="SourceRcon\HighLevel\Commands\SetMessageOfTheDay.cs" />
-    <Compile Include="SourceRcon\HighLevel\Commands\SetTimeOfDay.cs" />
-    <Compile Include="SourceRcon\HighLevel\Commands\ShowMessageOfTheDay.cs" />
-    <Compile Include="SourceRcon\HighLevel\Commands\UnbanPlayer.cs" />
-    <Compile Include="SourceRcon\HighLevel\Commands\CommandType.cs" />
-    <Compile Include="SourceRcon\HighLevel\ArkRcon.cs" />
-    <Compile Include="SourceRcon\HighLevel\RconClient.cs" />
-    <Compile Include="SourceRcon\RconClient.cs" />
-    <Compile Include="SourceRcon\PacketType.cs" />
-    <Compile Include="SourceRcon\Rcon.cs" />
-    <Compile Include="SourceRcon\RconPacket.cs" />
-    <Compile Include="SourceRcon\Util.cs" />
+    <Compile Include="Core\ArkRcon.cs" />
     <None Include="UI\Controls\GraphicUtils.cs" />
     <None Include="UI\Controls\ServerEntry.cs">
       <SubType>Component</SubType>
@@ -180,16 +138,12 @@
     <None Include="UI\Servers.Designer.cs">
       <DependentUpon>Servers.cs</DependentUpon>
     </None>
-    <Compile Include="UI\Theme.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="UserInterface\Modules\Chat.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserInterface\Modules\Chat.Designer.cs">
       <DependentUpon>Chat.cs</DependentUpon>
     </Compile>
-    <Compile Include="Core\EventArgs\CommandExecutedEventArgs.cs" />
     <Compile Include="UserInterface\Modules\Console.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -236,7 +190,6 @@
     <Compile Include="Core\Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <None Include="Core\Rcon.cs" />
     <Compile Include="UserInterface\ServerList.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -286,9 +239,6 @@
     <Compile Include="UserInterface\WizardPageAddServer.Designer.cs">
       <DependentUpon>WizardPageAddServer.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="UI\Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="UI\FormNew.resx">
       <DependentUpon>FormNew.cs</DependentUpon>
     </EmbeddedResource>

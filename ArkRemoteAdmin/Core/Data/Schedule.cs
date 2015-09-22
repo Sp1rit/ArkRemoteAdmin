@@ -6,8 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
-using ArkRemoteAdmin.SourceRcon.HighLevel.Commands;
-using ArkRcon = ArkRemoteAdmin.SourceRcon.HighLevel.ArkRcon;
+using Rcon.Commands;
+using ArkRcon = ArkRemoteAdmin.Core.ArkRcon;
 
 namespace ArkRemoteAdmin.Data
 {

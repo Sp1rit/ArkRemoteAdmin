@@ -8,7 +8,7 @@ using System.Windows.Forms;
 using ArkRemoteAdmin.Data;
 using BssFramework.Windows.Forms;
 using Quartz;
-using ArkRcon = ArkRemoteAdmin.SourceRcon.HighLevel.ArkRcon;
+using ArkRcon = ArkRemoteAdmin.Core.ArkRcon;
 
 namespace ArkRemoteAdmin.UserInterface.Modules
 {

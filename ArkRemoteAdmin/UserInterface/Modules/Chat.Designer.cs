@@ -31,9 +31,9 @@
             this.rtbLog = new System.Windows.Forms.RichTextBox();
             this.btnSend = new System.Windows.Forms.Button();
             this.ckbGetChat = new System.Windows.Forms.CheckBox();
-            this.rtbMessage = new System.Windows.Forms.RichTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.tbxChatMessage = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // rtbLog
@@ -44,7 +44,7 @@
             this.rtbLog.Location = new System.Drawing.Point(3, 3);
             this.rtbLog.Name = "rtbLog";
             this.rtbLog.ReadOnly = true;
-            this.rtbLog.Size = new System.Drawing.Size(569, 311);
+            this.rtbLog.Size = new System.Drawing.Size(569, 335);
             this.rtbLog.TabIndex = 1;
             this.rtbLog.Text = "";
             // 
@@ -66,24 +66,13 @@
             this.ckbGetChat.AutoSize = true;
             this.ckbGetChat.Checked = true;
             this.ckbGetChat.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ckbGetChat.Location = new System.Drawing.Point(3, 320);
+            this.ckbGetChat.Location = new System.Drawing.Point(3, 344);
             this.ckbGetChat.Name = "ckbGetChat";
             this.ckbGetChat.Size = new System.Drawing.Size(216, 17);
             this.ckbGetChat.TabIndex = 5;
             this.ckbGetChat.Text = "Get new chat messages from the server.";
             this.ckbGetChat.UseVisualStyleBackColor = true;
             this.ckbGetChat.CheckedChanged += new System.EventHandler(this.ckbGetChat_CheckedChanged);
-            // 
-            // rtbMessage
-            // 
-            this.rtbMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.rtbMessage.Location = new System.Drawing.Point(3, 343);
-            this.rtbMessage.Name = "rtbMessage";
-            this.rtbMessage.Size = new System.Drawing.Size(569, 44);
-            this.rtbMessage.TabIndex = 6;
-            this.rtbMessage.Text = "";
-            this.rtbMessage.TextChanged += new System.EventHandler(this.rtbMessage_TextChanged);
             // 
             // label1
             // 
@@ -109,13 +98,24 @@
             this.comboBox1.TabIndex = 8;
             this.comboBox1.ValueMember = "Value";
             // 
+            // tbxChatMessage
+            // 
+            this.tbxChatMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbxChatMessage.Location = new System.Drawing.Point(3, 367);
+            this.tbxChatMessage.Name = "tbxChatMessage";
+            this.tbxChatMessage.Size = new System.Drawing.Size(569, 20);
+            this.tbxChatMessage.TabIndex = 9;
+            this.tbxChatMessage.TextChanged += new System.EventHandler(this.tbxChatMessage_TextChanged);
+            this.tbxChatMessage.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbxChatMessage_KeyDown);
+            // 
             // Chat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.tbxChatMessage);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.rtbMessage);
             this.Controls.Add(this.ckbGetChat);
             this.Controls.Add(this.btnSend);
             this.Controls.Add(this.rtbLog);
@@ -131,8 +131,8 @@
         private System.Windows.Forms.RichTextBox rtbLog;
         private System.Windows.Forms.Button btnSend;
         private System.Windows.Forms.CheckBox ckbGetChat;
-        private System.Windows.Forms.RichTextBox rtbMessage;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.TextBox tbxChatMessage;
     }
 }

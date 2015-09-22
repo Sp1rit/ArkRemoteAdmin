@@ -76,7 +76,7 @@ namespace ArkRemoteAdmin
                     .WithMisfireHandlingInstructionFireNow()
                     .RepeatForever()
                     )
-                .StartAt(DateBuilder.DateOf((DateTime.Now.Minute + schedule.TimeSpan.Minutes > 59) ? DateTime.Now.Hour + 1 : DateTime.Now.Hour, (DateTime.Now.Minute + schedule.TimeSpan.Minutes) % 60, DateTime.Now.Second));
+                .StartAt(DateBuilder.DateOf(((DateTime.Now.Minute + schedule.TimeSpan.Minutes > 59) ? DateTime.Now.Hour + 1 : DateTime.Now.Hour) % 24, (DateTime.Now.Minute + schedule.TimeSpan.Minutes) % 60, DateTime.Now.Second));
             }
 
             ITrigger trigger = builder.Build();

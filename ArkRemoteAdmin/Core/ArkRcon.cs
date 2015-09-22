@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ArkRemoteAdmin.Data;
-using ArkRemoteAdmin.SourceRcon.HighLevel.Commands;
 using Quartz;
+using Rcon;
 
-namespace ArkRemoteAdmin.SourceRcon.HighLevel
+namespace ArkRemoteAdmin.Core
 {
     static class ArkRcon
     {
@@ -31,14 +28,14 @@ namespace ArkRemoteAdmin.SourceRcon.HighLevel
 
         public static void RefreshPlayers()
         {
-            Client.ExecuteLowPrioCommandAsync(new ListPlayers(), PlayersListed);
+            Client.ExecuteLowPrioCommandAsync(new Rcon.Commands.ListPlayers(), PlayersListed);
         }
 
         private static void PlayersListed(object sender, CommandExecutedEventArgs e)
         {
             if (e.Successful)
             {
-                List<Player> players = ListPlayers.ParsePlayers(e.Response);
+                List<Player> players = Player.ParsePlayers(e.Response);
                 PlayersRefreshed?.Invoke(Client, players);
             }
         }
@@ -104,7 +101,7 @@ namespace ArkRemoteAdmin.SourceRcon.HighLevel
 
         public static void GetChat()
         {
-            Client.ExecuteLowPrioCommandAsync(new GetChat(), ChatReceived);
+            Client.ExecuteLowPrioCommandAsync(new Rcon.Commands.GetChat(), ChatReceived);
         }
 
         private static void ChatReceived(object sender, CommandExecutedEventArgs e)

@@ -46,7 +46,7 @@ namespace ArkRemoteAdmin.UI
 
         private void lnkProfile_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Utils.OpenWebsite(lnkProfile.Tag?.ToString());
+            //Utils.OpenWebsite(lnkProfile.Tag?.ToString());
         }
 
         #endregion // Events

@@ -8,8 +8,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ArkRemoteAdmin.SourceRcon.HighLevel.Commands;
-using ArkRcon = ArkRemoteAdmin.SourceRcon.HighLevel.ArkRcon;
+using Rcon;
+using Rcon.Commands;
+using ArkRcon = ArkRemoteAdmin.Core.ArkRcon;
 
 namespace ArkRemoteAdmin.UserInterface.Modules
 {
@@ -52,7 +53,7 @@ namespace ArkRemoteAdmin.UserInterface.Modules
             ArkRcon.Client.ExecuteCommandAsync(new SetMessageOfTheDay(motd), MessageOfTheDaySet);
         }
 
-        private void MessageOfTheDaySet(object sender, SourceRcon.HighLevel.CommandExecutedEventArgs e)
+        private void MessageOfTheDaySet(object sender, CommandExecutedEventArgs e)
         {
             if (e.Successful)
             {
@@ -69,7 +70,7 @@ namespace ArkRemoteAdmin.UserInterface.Modules
             ArkRcon.Client.ExecuteCommandAsync(new ShowMessageOfTheDay(), MessageOfTheDayShown);
         }
 
-        private void MessageOfTheDayShown(object sender, SourceRcon.HighLevel.CommandExecutedEventArgs e)
+        private void MessageOfTheDayShown(object sender, CommandExecutedEventArgs e)
         {
             if (e.Successful)
                 SetStatus("Message of the day shown", StatusType.Ok);
@@ -82,7 +83,7 @@ namespace ArkRemoteAdmin.UserInterface.Modules
             ArkRcon.Client.ExecuteCommandAsync(new Broadcast(rtbBroadcast.Text.ToRcon()), Broadcasted);
         }
 
-        private void Broadcasted(object sender, SourceRcon.HighLevel.CommandExecutedEventArgs e)
+        private void Broadcasted(object sender, CommandExecutedEventArgs e)
         {
             if (e.Successful)
             {
@@ -98,7 +99,7 @@ namespace ArkRemoteAdmin.UserInterface.Modules
             ArkRcon.Client.ExecuteCommandAsync(new SetTimeOfDay(dtbTimeOfDay.Value.TimeOfDay), TimeSet);
         }
 
-        private void TimeSet(object sender, SourceRcon.HighLevel.CommandExecutedEventArgs e)
+        private void TimeSet(object sender, CommandExecutedEventArgs e)
         {
             if (e.Successful)
                 SetStatus("TimeOfDay set", StatusType.Ok);

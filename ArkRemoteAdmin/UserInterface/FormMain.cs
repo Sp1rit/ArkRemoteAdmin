@@ -4,10 +4,13 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using ArkRemoteAdmin.Core;
 using ArkRemoteAdmin.Data;
 using ArkRemoteAdmin.Properties;
 using ArkRemoteAdmin.UserInterface;
 using BssFramework.Windows.Forms;
+using Rcon;
+using Rcon.Commands;
 
 namespace ArkRemoteAdmin
 {
@@ -41,10 +44,10 @@ namespace ArkRemoteAdmin
                 Updater.CheckSilent();
 
             // Register Events
-            SourceRcon.HighLevel.ArkRcon.Client.Connecting += Client_Connecting;
-            SourceRcon.HighLevel.ArkRcon.Client.Connected += Client_Connected;
-            SourceRcon.HighLevel.ArkRcon.Client.ConnectionFailed += Client_ConnectionFailed;
-            SourceRcon.HighLevel.ArkRcon.Client.Disconnected += Client_Disconnected;
+            ArkRcon.Client.Connecting += Client_Connecting;
+            ArkRcon.Client.Connected += Client_Connected;
+            ArkRcon.Client.ConnectionFailed += Client_ConnectionFailed;
+            ArkRcon.Client.Disconnected += Client_Disconnected;
 
             // Connect to default server
             Server defaultServer = Data.Data.Servers.FirstOrDefault(s => s.Default);
@@ -53,12 +56,11 @@ namespace ArkRemoteAdmin
             {
                 try
                 {
-                    SourceRcon.HighLevel.ArkRcon.Connect(defaultServer);
+                    ArkRcon.Connect(defaultServer);
                     //Rcon.Connect(defaultServer);
                 }
                 catch (Exception ex)
                 {
-
                     new TaskDialog()
                     {
                         WindowTitle = "Connection failed",
@@ -74,20 +76,22 @@ namespace ArkRemoteAdmin
 
         private void Client_Connecting(object sender, EventArgs e)
         {
-            progressOverlay.showOverlay();
+            syncContext.Post(state =>
+            {
+                progressOverlay.showOverlay();
+            }, null);
         }
 
         private void Client_ConnectionFailed(object sender, string e)
         {
-            progressOverlay.hideOverlay();
+            syncContext.Send(state => progressOverlay.hideOverlay(), null);
         }
 
         private void Client_Connected(object sender, EventArgs e)
         {
-            progressOverlay.hideOverlay();
-
             syncContext.Send(state =>
             {
+                progressOverlay.hideOverlay();
                 tsbConnect.Visible = false;
                 tsbDisconnect.Visible = true;
                 toolStripSeparator1.Visible = true;
@@ -97,13 +101,13 @@ namespace ArkRemoteAdmin
                 tabControl1.Visible = true;
 
                 tslConnection.Image = Resources.connect;
-                tslConnection.Text = "Connected to " + SourceRcon.HighLevel.ArkRcon.ConnectedServer.Name;
+                tslConnection.Text = "Connected to " + ArkRcon.ConnectedServer.Name;
             }, null);
 
             SetStatus("Connected");
         }
 
-        private void Client_Disconnected(object sender, bool e)
+        private void Client_Disconnected(object sender, bool requested)
         {
             syncContext.Send(state =>
             {
@@ -120,6 +124,30 @@ namespace ArkRemoteAdmin
             }, null);
 
             SetStatus("Disconnected");
+
+            if (!requested)
+            {
+                // Reconnect
+                try
+                {
+                    ArkRcon.Connect(ArkRcon.ConnectedServer);
+                }
+                catch (Exception)
+                {
+                    syncContext.Send(state =>
+                    {
+                        new TaskDialog()
+                        {
+                            WindowTitle = "Reconnect failed",
+                            MainInstruction = "Reconnect failed",
+                            Content = "Make sure that the server is online and configured correctly.",
+                            CommonButtons = TaskDialogCommonButtons.Ok,
+                            MainIcon = TaskDialogIcon.Warning,
+                            PositionRelativeToWindow = true
+                        }.Show(this);
+                    }, null);
+                }
+            }
         }
 
         private void FormMain_Resize(object sender, EventArgs e)
@@ -145,10 +173,10 @@ namespace ArkRemoteAdmin
 
         private void tsbSaveWorld_Click(object sender, EventArgs e)
         {
-            SourceRcon.HighLevel.ArkRcon.Client.ExecuteCommandAsync(new SourceRcon.HighLevel.Commands.SaveWorld(), WorldSaved);
+            ArkRcon.Client.ExecuteCommandAsync(new SaveWorld(), WorldSaved);
         }
 
-        private void WorldSaved(object sender, SourceRcon.HighLevel.CommandExecutedEventArgs e)
+        private void WorldSaved(object sender, CommandExecutedEventArgs e)
         {
             if (e.Successful)
                 SetStatus("World saved");
@@ -159,7 +187,7 @@ namespace ArkRemoteAdmin
 
         private void tsbDisconnect_Click(object sender, EventArgs e)
         {
-            SourceRcon.HighLevel.ArkRcon.Client.Disconnect();
+            ArkRcon.Client.Disconnect();
             //Rcon.Disconnect();
         }
 
@@ -177,14 +205,17 @@ namespace ArkRemoteAdmin
         {
             if (MessageBoxEx.Show(this, "Exit Server", "Are you sure you want to shut down the server?", "Be sure to save your world before you should the server down.", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
             {
-                SourceRcon.HighLevel.ArkRcon.Client.ExecuteCommandAsync(new SourceRcon.HighLevel.Commands.DoExit(), ServerExited);
+                ArkRcon.Client.ExecuteCommandAsync(new DoExit(), ServerExited);
             }
         }
 
-        private void ServerExited(object sender, SourceRcon.HighLevel.CommandExecutedEventArgs e)
+        private void ServerExited(object sender, CommandExecutedEventArgs e)
         {
             if (e.Successful)
+            {
                 SetStatus("Server shutting down");
+                ArkRcon.Client.Disconnect();
+            }
             else
                 SetStatus("Server could not be shut down", StatusType.Error);
         }
@@ -273,6 +304,14 @@ namespace ArkRemoteAdmin
         }
 
         #endregion // Tray Icon
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (tabControl1.SelectedTab == tpChat)
+                chat.FocusMessage();
+            else if (tabControl1.SelectedTab == tpConsole)
+                console.FocusMessage();
+        }
     }
 
     public enum StatusType

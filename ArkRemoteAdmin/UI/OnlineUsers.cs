@@ -24,9 +24,11 @@ namespace ArkRemoteAdmin.UI
 
             HideSelected();
 
-            Rcon.Connected += Rcon_Connected;
-            Rcon.Disconnected += Rcon_Disconnected;
-            Rcon.PlayersRefreshed += Rcon_PlayersRefreshed;
+
+
+            Core.ArkRcon.Client.Connected += Rcon_Connected;
+            Core.ArkRcon.Client.Disconnected += Rcon_Disconnected;
+            Core.ArkRcon.PlayersRefreshed += Rcon_PlayersRefreshed;
         }
 
         private void Rcon_Connected(object sender, EventArgs e)
@@ -34,12 +36,12 @@ namespace ArkRemoteAdmin.UI
             //SetPlayers();
         }
 
-        private void Rcon_Disconnected(object sender, EventArgs e)
+        private void Rcon_Disconnected(object sender, bool error)
         {
             Clear();
         }
 
-        private void Rcon_PlayersRefreshed(object sender, Player[] players)
+        private void Rcon_PlayersRefreshed(object sender, List<Player> players)
         {
             SyncContext.Send(state =>
             {
@@ -74,7 +76,7 @@ namespace ArkRemoteAdmin.UI
 
         private async void SetPlayers()
         {
-            Player[] players = await Rcon.ListPlayers();
+            List<Player> players = null;//await ArkRemoteAdmin.Core.ArkRcon.RefreshPlayers Rcon.ListPlayers();
 
             SyncContext.Send(state =>
             {
