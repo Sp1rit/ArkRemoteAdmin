@@ -35,13 +35,17 @@ namespace ArkRemoteAdmin
                 tsbUpdate.Visible = false;
         }
 
-        private void FormMain_Load(object sender, EventArgs e)
+        private async void FormMain_Load(object sender, EventArgs e)
         {
             // Set synchronization context
             syncContext = SynchronizationContext.Current;
 
             if (Updater.Exists())
                 Updater.CheckSilent();
+
+            Version version = await Updater.CheckWebVersion();
+            if (version != null)
+                notifyIcon.ShowBalloonTip(3000, "Update available", $"A new version ({version}) is available. Click here to get it!", ToolTipIcon.Info);
 
             // Register Events
             ArkRcon.Client.Connecting += Client_Connecting;
@@ -311,6 +315,11 @@ namespace ArkRemoteAdmin
                 chat.FocusMessage();
             else if (tabControl1.SelectedTab == tpConsole)
                 console.FocusMessage();
+        }
+
+        private void notifyIcon_BalloonTipClicked(object sender, EventArgs e)
+        {
+            BssFramework.Utils.OpenWebsite(new Uri("http://steamcommunity.com/app/346110/discussions/0/530646715638980889/"));
         }
     }
 

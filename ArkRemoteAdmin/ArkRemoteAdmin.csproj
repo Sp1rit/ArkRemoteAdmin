@@ -76,8 +76,8 @@
       <HintPath>..\packages\Quartz.2.3.3\lib\net40\Quartz.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Rcon, Version=1.0.25.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Rcon.1.0.25.0\lib\net45\Rcon.dll</HintPath>
+    <Reference Include="Rcon, Version=1.0.27.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rcon.1.0.27.0\lib\net45\Rcon.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="SharpRaven, Version=1.4.6.0, Culture=neutral, processorArchitecture=MSIL">

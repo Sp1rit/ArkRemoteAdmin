@@ -37,7 +37,8 @@ namespace ArkRemoteAdmin.UserInterface
 
         private void Client_Connected(object sender, EventArgs e)
         {
-            ArkRcon.StartPlayerRefresh();
+            if (Data.Settings.Server.AutoRefreshPlayers)
+                ArkRcon.StartPlayerRefresh();
         }
 
         private void Client_Disconnected(object sender, bool e)

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -41,6 +43,25 @@ namespace ArkRemoteAdmin
             catch (Exception ex)
             {
                 
+            }
+        }
+
+        public static async Task<Version> CheckWebVersion()
+        {
+            try
+            {
+                WebClient client = new WebClient();
+                Version newVersion = Version.Parse(await client.DownloadStringTaskAsync("http://xunion.net/ArkRemoteAdmin/version.txt"));
+                Version currentVersion = Assembly.GetExecutingAssembly().GetName().Version;
+
+                if (newVersion > currentVersion)
+                    return newVersion;
+                else
+                    return null;
+            }
+            catch (Exception)
+            {
+                return null;
             }
         }
     }

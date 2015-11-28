@@ -22,6 +22,7 @@ namespace ArkRemoteAdmin.Data
             General.AutoReconnect = true;
             Server.GetChatInterval = 10;
             Server.PlayerRefreshInterval = 30;
+            Server.AutoRefreshPlayers = true;
 
             if (SettingsFile.Exists)
             {
@@ -40,6 +41,7 @@ namespace ArkRemoteAdmin.Data
                     {
                         Server.GetChatInterval = server.Element("GetChatInterval").GetValue(10);
                         Server.PlayerRefreshInterval = server.Element("PlayerRefreshInterval").GetValue(30);
+                        Server.AutoRefreshPlayers = server.Element("AutoRefreshPlayers").GetValue(true);
                     }
                 }
             }
@@ -57,7 +59,8 @@ namespace ArkRemoteAdmin.Data
                         new XElement("AutoReconnect", General.AutoReconnect)),
                     new XElement("Server",
                         new XElement("GetChatInterval", Server.GetChatInterval),
-                        new XElement("PlayerRefreshInterval", Server.PlayerRefreshInterval))
+                        new XElement("PlayerRefreshInterval", Server.PlayerRefreshInterval),
+                        new XElement("AutoRefreshPlayers", Server.AutoRefreshPlayers))
                         ));
 
             xDoc.Save(SettingsFile.FullName);
@@ -73,6 +76,7 @@ namespace ArkRemoteAdmin.Data
         {
             public static int GetChatInterval { get; set; }
             public static int PlayerRefreshInterval { get; set; }
+            public static bool AutoRefreshPlayers { get; set; }
         }
     }
 }

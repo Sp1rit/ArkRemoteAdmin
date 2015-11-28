@@ -16,6 +16,7 @@ namespace ArkRemoteAdmin.UserInterface
             checkBox1.Checked = Settings.General.AllowMultipleInstances;
             nudChatInterval.Value = Settings.Server.GetChatInterval.Clamp<int>((int)nudChatInterval.Minimum, (int)nudChatInterval.Maximum);
             nudPlayerInterval.Value = Settings.Server.PlayerRefreshInterval.Clamp<int>((int)nudPlayerInterval.Minimum, (int)nudPlayerInterval.Maximum);
+            ckbRefreshPlayers.Checked = Settings.Server.AutoRefreshPlayers;
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -23,6 +24,7 @@ namespace ArkRemoteAdmin.UserInterface
             Settings.General.AllowMultipleInstances = checkBox1.Checked;
             Settings.Server.GetChatInterval = (int)nudChatInterval.Value;
             Settings.Server.PlayerRefreshInterval = (int)nudPlayerInterval.Value;
+            Settings.Server.AutoRefreshPlayers = ckbRefreshPlayers.Checked;
             Settings.Save();
 
             Close();

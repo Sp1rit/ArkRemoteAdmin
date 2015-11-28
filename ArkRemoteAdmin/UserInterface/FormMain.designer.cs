@@ -53,10 +53,15 @@ namespace ArkRemoteAdmin
             this.tslConnection = new System.Windows.Forms.ToolStripStatusLabel();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tpPlayers = new System.Windows.Forms.TabPage();
+            this.players = new ArkRemoteAdmin.UserInterface.Players();
             this.tpServer = new System.Windows.Forms.TabPage();
+            this.server = new ArkRemoteAdmin.UserInterface.Modules.Server();
             this.tpSchedules = new System.Windows.Forms.TabPage();
+            this.schedulesList = new ArkRemoteAdmin.UserInterface.Modules.SchedulesList();
             this.tpChat = new System.Windows.Forms.TabPage();
+            this.chat = new ArkRemoteAdmin.UserInterface.Modules.Chat();
             this.tpConsole = new System.Windows.Forms.TabPage();
+            this.console = new ArkRemoteAdmin.Console();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
@@ -70,11 +75,6 @@ namespace ArkRemoteAdmin
             this.tsbWebsite = new System.Windows.Forms.ToolStripButton();
             this.tsbDonate = new System.Windows.Forms.ToolStripButton();
             this.tsExitServer = new System.Windows.Forms.ToolStripButton();
-            this.players = new ArkRemoteAdmin.UserInterface.Players();
-            this.server = new ArkRemoteAdmin.UserInterface.Modules.Server();
-            this.schedulesList = new ArkRemoteAdmin.UserInterface.Modules.SchedulesList();
-            this.chat = new ArkRemoteAdmin.UserInterface.Modules.Chat();
-            this.console = new ArkRemoteAdmin.Console();
             this.cmsTray.SuspendLayout();
             this.panel1.SuspendLayout();
             this.toolStripContainer.BottomToolStripPanel.SuspendLayout();
@@ -98,6 +98,7 @@ namespace ArkRemoteAdmin
             this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
             this.notifyIcon.Text = "ARK Remote Admin";
             this.notifyIcon.Visible = true;
+            this.notifyIcon.BalloonTipClicked += new System.EventHandler(this.notifyIcon_BalloonTipClicked);
             this.notifyIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseDoubleClick);
             // 
             // cmsTray
@@ -307,6 +308,14 @@ namespace ArkRemoteAdmin
             this.tpPlayers.Text = "Players";
             this.tpPlayers.UseVisualStyleBackColor = true;
             // 
+            // players
+            // 
+            this.players.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.players.Location = new System.Drawing.Point(3, 3);
+            this.players.Name = "players";
+            this.players.Size = new System.Drawing.Size(631, 318);
+            this.players.TabIndex = 3;
+            // 
             // tpServer
             // 
             this.tpServer.Controls.Add(this.server);
@@ -317,6 +326,14 @@ namespace ArkRemoteAdmin
             this.tpServer.TabIndex = 1;
             this.tpServer.Text = "Server";
             this.tpServer.UseVisualStyleBackColor = true;
+            // 
+            // server
+            // 
+            this.server.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.server.Location = new System.Drawing.Point(3, 3);
+            this.server.Name = "server";
+            this.server.Size = new System.Drawing.Size(631, 318);
+            this.server.TabIndex = 0;
             // 
             // tpSchedules
             // 
@@ -329,6 +346,14 @@ namespace ArkRemoteAdmin
             this.tpSchedules.Text = "Schedules";
             this.tpSchedules.UseVisualStyleBackColor = true;
             // 
+            // schedulesList
+            // 
+            this.schedulesList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.schedulesList.Location = new System.Drawing.Point(3, 3);
+            this.schedulesList.Name = "schedulesList";
+            this.schedulesList.Size = new System.Drawing.Size(631, 318);
+            this.schedulesList.TabIndex = 0;
+            // 
             // tpChat
             // 
             this.tpChat.Controls.Add(this.chat);
@@ -340,6 +365,14 @@ namespace ArkRemoteAdmin
             this.tpChat.Text = "Chat";
             this.tpChat.UseVisualStyleBackColor = true;
             // 
+            // chat
+            // 
+            this.chat.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.chat.Location = new System.Drawing.Point(3, 3);
+            this.chat.Name = "chat";
+            this.chat.Size = new System.Drawing.Size(631, 318);
+            this.chat.TabIndex = 0;
+            // 
             // tpConsole
             // 
             this.tpConsole.Controls.Add(this.console);
@@ -350,6 +383,14 @@ namespace ArkRemoteAdmin
             this.tpConsole.TabIndex = 4;
             this.tpConsole.Text = "Console";
             this.tpConsole.UseVisualStyleBackColor = true;
+            // 
+            // console
+            // 
+            this.console.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.console.Location = new System.Drawing.Point(3, 3);
+            this.console.Name = "console";
+            this.console.Size = new System.Drawing.Size(631, 318);
+            this.console.TabIndex = 0;
             // 
             // tableLayoutPanel1
             // 
@@ -500,46 +541,6 @@ namespace ArkRemoteAdmin
             this.tsExitServer.Text = "Stop Server";
             this.tsExitServer.Visible = false;
             this.tsExitServer.Click += new System.EventHandler(this.tsExitServer_Click);
-            // 
-            // players
-            // 
-            this.players.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.players.Location = new System.Drawing.Point(3, 3);
-            this.players.Name = "players";
-            this.players.Size = new System.Drawing.Size(631, 318);
-            this.players.TabIndex = 3;
-            // 
-            // server
-            // 
-            this.server.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.server.Location = new System.Drawing.Point(3, 3);
-            this.server.Name = "server";
-            this.server.Size = new System.Drawing.Size(631, 318);
-            this.server.TabIndex = 0;
-            // 
-            // schedulesList
-            // 
-            this.schedulesList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.schedulesList.Location = new System.Drawing.Point(3, 3);
-            this.schedulesList.Name = "schedulesList";
-            this.schedulesList.Size = new System.Drawing.Size(631, 318);
-            this.schedulesList.TabIndex = 0;
-            // 
-            // chat
-            // 
-            this.chat.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chat.Location = new System.Drawing.Point(3, 3);
-            this.chat.Name = "chat";
-            this.chat.Size = new System.Drawing.Size(631, 318);
-            this.chat.TabIndex = 0;
-            // 
-            // console
-            // 
-            this.console.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.console.Location = new System.Drawing.Point(3, 3);
-            this.console.Name = "console";
-            this.console.Size = new System.Drawing.Size(631, 318);
-            this.console.TabIndex = 0;
             // 
             // FormMain
             // 
