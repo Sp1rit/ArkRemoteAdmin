@@ -40,13 +40,6 @@ namespace ArkRemoteAdmin
             // Set synchronization context
             syncContext = SynchronizationContext.Current;
 
-            if (Updater.Exists())
-                Updater.CheckSilent();
-
-            Version version = await Updater.CheckWebVersion();
-            if (version != null)
-                notifyIcon.ShowBalloonTip(3000, "Update available", $"A new version ({version}) is available. Click here to get it!", ToolTipIcon.Info);
-
             // Register Events
             ArkRcon.Client.Connecting += Client_Connecting;
             ArkRcon.Client.Connected += Client_Connected;
@@ -76,6 +69,13 @@ namespace ArkRemoteAdmin
                     }.Show(this);
                 }
             }
+            
+            if (Updater.Exists())
+                Updater.CheckSilent();
+
+            Version version = await Updater.CheckWebVersion();
+            if (version != null)
+                notifyIcon.ShowBalloonTip(3000, "Update available", $"A new version ({version}) is available. Click here to get it!", ToolTipIcon.Info);
         }
 
         private void Client_Connecting(object sender, EventArgs e)
